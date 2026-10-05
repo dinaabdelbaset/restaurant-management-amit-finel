@@ -31,6 +31,7 @@ const OrderOnline = () => {
     const newCart = cart.filter(c => c.menu_item_id !== id);
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
+    window.dispatchEvent(new Event('cartUpdated'));
   };
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -54,6 +55,7 @@ const OrderOnline = () => {
       setMsg(paymentMethod === 'Card' ? (isAr ? 'تم الدفع بنجاح! تم استلام طلبك.' : 'Payment successful! Order placed.') : (isAr ? 'تم استلام طلبك بنجاح!' : 'Order placed successfully!'));
       setCart([]);
       localStorage.removeItem('cart');
+      window.dispatchEvent(new Event('cartUpdated'));
       setTimeout(() => navigate('/profile'), 2000);
     } catch (err) {
       setMsg(isAr ? 'تعذر إتمام الطلب، يرجى مراجعة البيانات.' : 'Failed to place order. Please check your details.');

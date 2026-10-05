@@ -129,6 +129,7 @@ const translations = {
     // Order Online / Checkout
     order_heading: 'Your Order & Cart',
     order_empty: 'Your cart is currently empty',
+    order_empty_cart: 'Your cart is currently empty. Please select food from the menu.',
     order_checkout: 'Proceed to Checkout',
     order_total: 'Total Amount',
     order_clear: 'Clear Cart',
@@ -333,6 +334,7 @@ const translations = {
     // Order Online / Checkout
     order_heading: 'سلة الطلبات والمشتريات',
     order_empty: 'سلتك فارغة حالياً، تصفح المنيو وأضف وجباتك المفضلة',
+    order_empty_cart: 'سلة المشتريات فارغة حالياً. يرجى اختيار وجبات من قائمة الطعام أولاً.',
     order_checkout: 'إتمام الطلب وتأكيد الشراء',
     order_total: 'المبلغ الإجمالي',
     order_clear: 'تفريغ السلة',

@@ -481,35 +481,83 @@ const AdminPanel = () => {
 
         {tab === 'orders' && (
           <div className={`card ${styles.cardSection}`}>
-            <h2>{isAr ? `إدارة الطلبات (${orders.length})` : `Manage Orders (${orders.length})`}</h2>
-            <table className={styles.table}>
-              <thead>
-                <tr className={styles.tableHeader}>
-                  <th className={styles.th}>{isAr ? 'رقم الطلب' : 'Order ID'}</th>
-                  <th className={styles.th}>{isAr ? 'العميل' : 'User'}</th>
-                  <th className={styles.th}>{isAr ? 'المجموع' : 'Total'}</th>
-                  <th className={styles.th}>{isAr ? 'الحالة' : 'Status'}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map(o => (
-                  <tr key={o.id} className={styles.tr}>
-                    <td className={styles.td}>#{o.id}</td>
-                    <td className={styles.td}>{o.user.name}</td>
-                    <td className={styles.td}>${o.total_amount}</td>
-                    <td className={styles.td}>
-                      <select value={o.status} onChange={(e) => updateOrderStatus(o.id, e.target.value)} className={styles.select}>
-                        <option value="Pending">Pending</option>
-                        <option value="Accepted">Accepted</option>
-                        <option value="In Progress">In Progress</option>
-                        <option value="Delivered">Delivered</option>
-                        <option value="Rejected">Rejected</option>
-                      </select>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <h2 style={{ margin: 0 }}>{isAr ? `إدارة ومتابعة طلبات الطعام (${orders.length})` : `Manage Customer Orders (${orders.length})`}</h2>
+              <span style={{ fontSize: '0.85rem', color: '#666' }}>{isAr ? 'يمكنك تغيير وتأكيد حالة الطلب مباشرة من القائمة' : 'Change and confirm order status directly from the dropdown'}</span>
+            </div>
+            
+            {orders.length === 0 ? (
+              <p style={{ textAlign: 'center', padding: '2rem', color: '#777' }}>{isAr ? 'لا توجد أي طلبات واردة حالياً.' : 'No customer orders placed yet.'}</p>
+            ) : (
+              <div style={{ overflowX: 'auto' }}>
+                <table className={styles.table} style={{ width: '100%', minWidth: '750px' }}>
+                  <thead>
+                    <tr className={styles.tableHeader}>
+                      <th className={styles.th}>{isAr ? 'رقم الطلب' : 'Order ID'}</th>
+                      <th className={styles.th}>{isAr ? 'العميل وبيانات التواصل' : 'Customer & Phone'}</th>
+                      <th className={styles.th}>{isAr ? 'عنوان التوصيل' : 'Delivery Address'}</th>
+                      <th className={styles.th}>{isAr ? 'الوجبات المطلوبة' : 'Ordered Items'}</th>
+                      <th className={styles.th}>{isAr ? 'المجموع والدفع' : 'Total & Payment'}</th>
+                      <th className={styles.th}>{isAr ? 'حالة الطلب' : 'Status'}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {orders.map(o => (
+                      <tr key={o.id} className={styles.tr}>
+                        <td className={styles.td} style={{ fontWeight: 'bold' }}>#{o.id}</td>
+                        <td className={styles.td}>
+                          <div style={{ fontWeight: 600 }}>{o.user?.name || (isAr ? 'عميل' : 'Customer')}</div>
+                          <div style={{ fontSize: '0.8rem', color: '#666' }}>📞 {o.phone || (isAr ? 'بدون رقم' : 'No phone')}</div>
+                          <div style={{ fontSize: '0.75rem', color: '#888' }}>✉️ {o.user?.email}</div>
+                        </td>
+                        <td className={styles.td} style={{ maxWidth: '180px', fontSize: '0.85rem' }}>
+                          <div>📍 {o.address}</div>
+                          {o.notes && <div style={{ fontSize: '0.75rem', color: '#b76e00', marginTop: '0.25rem' }}>📝 {o.notes}</div>}
+                        </td>
+                        <td className={styles.td} style={{ fontSize: '0.85rem' }}>
+                          <ul style={{ paddingInlineStart: '1.1rem', margin: 0 }}>
+                            {o.order_items?.map((item, idx) => (
+                              <li key={idx} style={{ marginBottom: '0.2rem' }}>
+                                <strong>{item.quantity}x</strong> {item.menu_item?.name || (isAr ? 'وجبة طعام' : 'Meal')} 
+                                <span style={{ color: '#888', fontSize: '0.75rem' }}> (${item.price})</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </td>
+                        <td className={styles.td}>
+                          <div style={{ fontWeight: 'bold', color: 'var(--primary)', fontSize: '1rem' }}>${o.total_amount}</div>
+                          <div style={{ fontSize: '0.75rem', color: '#666', marginTop: '0.15rem' }}>💳 {o.payment_method}</div>
+                        </td>
+                        <td className={styles.td}>
+                          <select 
+                            value={o.status} 
+                            onChange={(e) => updateOrderStatus(o.id, e.target.value)} 
+                            className={styles.select}
+                            style={{
+                              padding: '0.4rem 0.6rem',
+                              borderRadius: '6px',
+                              fontWeight: 'bold',
+                              fontSize: '0.85rem',
+                              border: '1.5px solid',
+                              borderColor: o.status === 'Accepted' || o.status === 'Delivered' ? '#2e7d32' : (o.status === 'Rejected' ? '#c62828' : '#f57c00'),
+                              backgroundColor: o.status === 'Accepted' || o.status === 'Delivered' ? '#E8F5E9' : (o.status === 'Rejected' ? '#FFEBEE' : '#FFF3E0'),
+                              color: o.status === 'Accepted' || o.status === 'Delivered' ? '#2e7d32' : (o.status === 'Rejected' ? '#c62828' : '#e65100'),
+                              cursor: 'pointer'
+                            }}
+                          >
+                            <option value="Pending">{isAr ? 'قيد الانتظار (Pending)' : 'Pending'}</option>
+                            <option value="Accepted">{isAr ? 'مقبول (Accepted)' : 'Accepted'}</option>
+                            <option value="In Progress">{isAr ? 'جاري التحضير (In Progress)' : 'In Progress'}</option>
+                            <option value="Delivered">{isAr ? 'تم التوصيل (Delivered)' : 'Delivered'}</option>
+                            <option value="Rejected">{isAr ? 'مرفوض (Rejected)' : 'Rejected'}</option>
+                          </select>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </div>
         )}
 
