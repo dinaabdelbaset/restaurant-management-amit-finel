@@ -121,18 +121,23 @@ const Navbar = () => {
             className={styles.langBtn}
             title={language === 'en' ? 'Switch to Arabic / التبديل للعربية' : 'Switch to English / التبديل للإنجليزية'}
           >
-            <span style={{ fontSize: '0.9rem' }}>🌐</span>
-            <span style={{ 
-              fontWeight: language === 'en' ? '800' : '500', 
-              color: language === 'en' ? '#AD343E' : '#777',
-              fontSize: '0.8rem'
-            }}>EN</span>
-            <span style={{ color: '#ccc', fontSize: '0.7rem' }}>|</span>
-            <span style={{ 
-              fontWeight: language === 'ar' ? '800' : '500', 
-              color: language === 'ar' ? '#AD343E' : '#777',
-              fontSize: '0.8rem'
-            }}>عربي</span>
+            <span style={{ fontSize: '0.88rem' }}>🌐</span>
+            <span className={styles.langDesktopText}>
+              <span style={{ 
+                fontWeight: language === 'en' ? '800' : '500', 
+                color: language === 'en' ? '#AD343E' : '#777',
+                fontSize: '0.8rem'
+              }}>EN</span>
+              <span style={{ color: '#ccc', fontSize: '0.7rem' }}>|</span>
+              <span style={{ 
+                fontWeight: language === 'ar' ? '800' : '500', 
+                color: language === 'ar' ? '#AD343E' : '#777',
+                fontSize: '0.8rem'
+              }}>عربي</span>
+            </span>
+            <span className={styles.langMobileText}>
+              {language === 'en' ? 'عربي' : 'EN'}
+            </span>
           </div>
 
           {/* Desktop Book Table CTA */}
