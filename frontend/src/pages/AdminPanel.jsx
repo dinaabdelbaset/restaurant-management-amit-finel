@@ -26,6 +26,16 @@ const AdminPanel = () => {
   const [newPost, setNewPost] = useState({ title: '', content: '', image: null });
   const [editingPostId, setEditingPostId] = useState(null);
 
+  const formatDateDisplay = (dateVal) => {
+    if (!dateVal) return '-';
+    const d = new Date(dateVal);
+    if (isNaN(d.getTime())) return dateVal;
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   const fetchData = async () => {
     try {
       const [bRes, oRes, mRes, uRes, cRes, pRes] = await Promise.all([
@@ -463,13 +473,28 @@ const AdminPanel = () => {
                     <td className={styles.td}>{b.user.name}</td>
                     <td className={styles.td}>{b.booking_date} {b.booking_time}</td>
                     <td className={styles.td}>{b.guests}</td>
-                    <td className={styles.td}><strong>{b.status}</strong></td>
+                    <td className={styles.td}>
+                      <span style={{
+                        padding: '0.25rem 0.6rem',
+                        borderRadius: '50px',
+                        fontSize: '0.8rem',
+                        fontWeight: 'bold',
+                        backgroundColor: b.status === 'Accepted' ? '#E8F5E9' : (b.status === 'Rejected' ? '#FFEBEE' : '#FFF3E0'),
+                        color: b.status === 'Accepted' ? '#2e7d32' : (b.status === 'Rejected' ? '#c62828' : '#e65100'),
+                      }}>
+                        {b.status === 'Accepted' ? (isAr ? '✔ تم القبول' : '✔ Accepted') :
+                         b.status === 'Rejected' ? (isAr ? '✖ مرفوض' : '✖ Rejected') :
+                         (isAr ? '⏳ قيد الانتظار' : '⏳ Pending')}
+                      </span>
+                    </td>
                     <td className={styles.actionCell}>
-                      {b.status === 'Pending' && (
-                        <>
-                          <button onClick={() => updateBookingStatus(b.id, 'Accepted')} className={`btn btn-primary ${styles.actionBtn}`}>{isAr ? 'قبول' : 'Accept'}</button>
-                          <button onClick={() => updateBookingStatus(b.id, 'Rejected')} className={`btn btn-outline ${styles.actionBtn}`}>{isAr ? 'رفض' : 'Reject'}</button>
-                        </>
+                      {b.status === 'Pending' ? (
+                        <div style={{ display: 'flex', gap: '0.4rem' }}>
+                          <button onClick={() => updateBookingStatus(b.id, 'Accepted')} style={{ backgroundColor: '#2e7d32', color: 'white', border: 'none', borderRadius: '6px', padding: '0.4rem 0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem' }}>{isAr ? '✔ قبول الحجز' : '✔ Accept'}</button>
+                          <button onClick={() => updateBookingStatus(b.id, 'Rejected')} style={{ backgroundColor: '#fff', color: '#c62828', border: '1.5px solid #c62828', borderRadius: '6px', padding: '0.4rem 0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem' }}>{isAr ? '✖ رفض' : '✖ Reject'}</button>
+                        </div>
+                      ) : (
+                        <button onClick={() => updateBookingStatus(b.id, 'Pending')} style={{ color: '#666', background: 'none', border: 'none', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.75rem' }}>{isAr ? 'إعادة تعيين' : 'Reset'}</button>
                       )}
                     </td>
                   </tr>
@@ -483,7 +508,7 @@ const AdminPanel = () => {
           <div className={`card ${styles.cardSection}`}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
               <h2 style={{ margin: 0 }}>{isAr ? `إدارة ومتابعة طلبات الطعام (${orders.length})` : `Manage Customer Orders (${orders.length})`}</h2>
-              <span style={{ fontSize: '0.85rem', color: '#666' }}>{isAr ? 'يمكنك تغيير وتأكيد حالة الطلب مباشرة من القائمة' : 'Change and confirm order status directly from the dropdown'}</span>
+              <span style={{ fontSize: '0.85rem', color: '#666' }}>{isAr ? 'يمكنك قبول أو رفض الطلب فوراً أو تغيير حالته' : 'Accept or reject orders instantly or change status'}</span>
             </div>
             
             {orders.length === 0 ? (
@@ -498,13 +523,16 @@ const AdminPanel = () => {
                       <th className={styles.th}>{isAr ? 'عنوان التوصيل' : 'Delivery Address'}</th>
                       <th className={styles.th}>{isAr ? 'الوجبات المطلوبة' : 'Ordered Items'}</th>
                       <th className={styles.th}>{isAr ? 'المجموع والدفع' : 'Total & Payment'}</th>
-                      <th className={styles.th}>{isAr ? 'حالة الطلب' : 'Status'}</th>
+                      <th className={styles.th}>{isAr ? 'القرار وحالة الطلب' : 'Action & Status'}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {orders.map(o => (
                       <tr key={o.id} className={styles.tr}>
-                        <td className={styles.td} style={{ fontWeight: 'bold' }}>#{o.id}</td>
+                        <td className={styles.td} style={{ fontWeight: 'bold' }}>
+                          #{o.id}
+                          <div style={{ fontSize: '0.72rem', color: '#888', marginTop: '0.2rem' }} dir="ltr">{formatDateDisplay(o.created_at)}</div>
+                        </td>
                         <td className={styles.td}>
                           <div style={{ fontWeight: 600 }}>{o.user?.name || (isAr ? 'عميل' : 'Customer')}</div>
                           <div style={{ fontSize: '0.8rem', color: '#666' }}>📞 {o.phone || (isAr ? 'بدون رقم' : 'No phone')}</div>
@@ -529,28 +557,60 @@ const AdminPanel = () => {
                           <div style={{ fontSize: '0.75rem', color: '#666', marginTop: '0.15rem' }}>💳 {o.payment_method}</div>
                         </td>
                         <td className={styles.td}>
-                          <select 
-                            value={o.status} 
-                            onChange={(e) => updateOrderStatus(o.id, e.target.value)} 
-                            className={styles.select}
-                            style={{
-                              padding: '0.4rem 0.6rem',
-                              borderRadius: '6px',
-                              fontWeight: 'bold',
-                              fontSize: '0.85rem',
-                              border: '1.5px solid',
-                              borderColor: o.status === 'Accepted' || o.status === 'Delivered' ? '#2e7d32' : (o.status === 'Rejected' ? '#c62828' : '#f57c00'),
-                              backgroundColor: o.status === 'Accepted' || o.status === 'Delivered' ? '#E8F5E9' : (o.status === 'Rejected' ? '#FFEBEE' : '#FFF3E0'),
-                              color: o.status === 'Accepted' || o.status === 'Delivered' ? '#2e7d32' : (o.status === 'Rejected' ? '#c62828' : '#e65100'),
-                              cursor: 'pointer'
-                            }}
-                          >
-                            <option value="Pending">{isAr ? 'قيد الانتظار (Pending)' : 'Pending'}</option>
-                            <option value="Accepted">{isAr ? 'مقبول (Accepted)' : 'Accepted'}</option>
-                            <option value="In Progress">{isAr ? 'جاري التحضير (In Progress)' : 'In Progress'}</option>
-                            <option value="Delivered">{isAr ? 'تم التوصيل (Delivered)' : 'Delivered'}</option>
-                            <option value="Rejected">{isAr ? 'مرفوض (Rejected)' : 'Rejected'}</option>
-                          </select>
+                          {o.status === 'Pending' ? (
+                            <div style={{ display: 'flex', gap: '0.4rem', flexDirection: 'column' }}>
+                              <div style={{ display: 'flex', gap: '0.35rem' }}>
+                                <button 
+                                  onClick={() => updateOrderStatus(o.id, 'Accepted')} 
+                                  style={{ backgroundColor: '#2e7d32', color: 'white', border: 'none', padding: '0.45rem 0.8rem', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem', whiteSpace: 'nowrap' }}
+                                >
+                                  {isAr ? '✔ قبول الطلب' : '✔ Accept'}
+                                </button>
+                                <button 
+                                  onClick={() => updateOrderStatus(o.id, 'Rejected')} 
+                                  style={{ backgroundColor: '#fff', color: '#c62828', border: '1.5px solid #c62828', padding: '0.45rem 0.8rem', borderRadius: '6px', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem', whiteSpace: 'nowrap' }}
+                                >
+                                  {isAr ? '✖ رفض' : '✖ Reject'}
+                                </button>
+                              </div>
+                              <span style={{ fontSize: '0.75rem', color: '#e65100', fontWeight: 600 }}>{isAr ? '⏳ بانتظار قرارك' : '⏳ Pending decision'}</span>
+                            </div>
+                          ) : (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                              <span style={{
+                                padding: '0.25rem 0.6rem',
+                                borderRadius: '50px',
+                                fontSize: '0.8rem',
+                                fontWeight: 'bold',
+                                display: 'inline-block',
+                                width: 'fit-content',
+                                backgroundColor: o.status === 'Accepted' || o.status === 'Delivered' ? '#E8F5E9' : (o.status === 'Rejected' ? '#FFEBEE' : '#FFF3E0'),
+                                color: o.status === 'Accepted' || o.status === 'Delivered' ? '#2e7d32' : (o.status === 'Rejected' ? '#c62828' : '#e65100'),
+                              }}>
+                                {o.status === 'Accepted' ? (isAr ? '✔ مقبول' : '✔ Accepted') :
+                                 o.status === 'Delivered' ? (isAr ? '✔ تم التوصيل' : '✔ Delivered') :
+                                 o.status === 'Rejected' ? (isAr ? '✖ مرفوض' : '✖ Rejected') :
+                                 o.status}
+                              </span>
+                              <select 
+                                value={o.status} 
+                                onChange={(e) => updateOrderStatus(o.id, e.target.value)} 
+                                style={{
+                                  padding: '0.3rem 0.5rem',
+                                  borderRadius: '5px',
+                                  fontSize: '0.8rem',
+                                  border: '1px solid #ccc',
+                                  cursor: 'pointer'
+                                }}
+                              >
+                                <option value="Pending">{isAr ? 'قيد الانتظار (Pending)' : 'Pending'}</option>
+                                <option value="Accepted">{isAr ? 'مقبول (Accepted)' : 'Accepted'}</option>
+                                <option value="In Progress">{isAr ? 'جاري التحضير (In Progress)' : 'In Progress'}</option>
+                                <option value="Delivered">{isAr ? 'تم التوصيل (Delivered)' : 'Delivered'}</option>
+                                <option value="Rejected">{isAr ? 'مرفوض (Rejected)' : 'Rejected'}</option>
+                              </select>
+                            </div>
+                          )}
                         </td>
                       </tr>
                     ))}
@@ -595,7 +655,11 @@ const AdminPanel = () => {
                     <td className={styles.td}>{u.name}</td>
                     <td className={styles.td}>{u.email}</td>
                     <td style={{ padding: '1rem', color: u.role === 'admin' ? 'var(--primary)' : 'inherit', fontWeight: u.role === 'admin' ? 'bold' : 'normal' }}>{u.role}</td>
-                    <td className={styles.td}>{new Date(u.created_at).toLocaleDateString()}</td>
+                    <td className={styles.td}>
+                      <span dir="ltr" style={{ display: 'inline-block', unicodeBidi: 'embed', fontWeight: 600, color: '#444' }}>
+                        {formatDateDisplay(u.created_at)}
+                      </span>
+                    </td>
                   </tr>
                 ))}
               </tbody>
