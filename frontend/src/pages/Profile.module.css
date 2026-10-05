@@ -1,0 +1,72 @@
+.container {
+  padding: 4rem 1rem;
+}
+
+.profileHeader {
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.cardSection {
+  padding: 2rem;
+}
+
+.sectionTitle {
+  margin-bottom: 1.5rem;
+}
+
+.list {
+  list-style: none;
+}
+
+.listItem {
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.badge {
+  font-weight: bold;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.details {
+  color: var(--text-gray);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.total {
+  font-weight: bold;
+}

@@ -1,0 +1,143 @@
+.container {
+  padding: 4rem 1rem;
+}
+
+.title {
+  margin-bottom: 2rem;
+}
+
+.navContainer {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.navBtn {
+  padding: 0.5rem 1.5rem;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navBtnActive {
+  font-weight: bold;
+  color: var(--primary);
+  border-bottom: 2px solid var(--primary);
+}
+
+.navBtnInactive {
+  font-weight: normal;
+  color: var(--text-gray);
+  border-bottom: none;
+}
+
+.cardSection {
+  padding: 2rem;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  margin-top: 1rem;
+  border-collapse: collapse;
+}
+
+.tableHeader {
+  border-bottom: 2px solid #eee;
+}
+
+.th {
+  padding: 1rem;
+}
+
+.tr {
+  border-bottom: 1px solid #eee;
+}
+
+.td {
+  padding: 1rem;
+}
+
+.tdBold {
+  padding: 1rem;
+  font-weight: bold;
+}
+
+.tdAdmin {
+  padding: 1rem;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.select {
+  padding: 0.25rem;
+}
+
+.actionCell {
+  padding: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actionBtn {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.formContainer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.list {
+  list-style: none;
+  margin-top: 1rem;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.listItemMessage {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  position: relative;
+}
+
+.itemContent {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.itemImage {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.deleteBtn {
+  color: red;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.deleteBtnAbsolute {
+  color: red;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
