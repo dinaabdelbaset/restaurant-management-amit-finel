@@ -1,3 +1,10 @@
+/* ==========================================================================
+   MOBILE-FIRST NAVBAR STYLES
+   Base styles apply to Mobile (320px+)
+   Scale up with @media (min-width: 768px) and @media (min-width: 1150px)
+   ========================================================================== */
+
+/* 1. Base (Mobile 320px+) */
 .header {
   width: 100%;
   font-family: var(--font-body);
@@ -5,7 +12,7 @@
   top: 0;
   z-index: 1000;
   background-color: #ffffff;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border-bottom: 1px solid #f0f0ee;
 }
 
@@ -13,24 +20,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.75rem 1.25rem;
+  padding: 0.65rem 0.85rem;
   max-width: 1320px;
   margin: 0 auto;
-  gap: 0.75rem;
+  gap: 0.4rem;
   flex-wrap: nowrap;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   text-decoration: none;
   color: #2C2F24;
   flex-shrink: 0;
 }
 
 .logoText {
-  font-size: clamp(1.2rem, 3.2vw, 1.75rem);
+  font-size: 1.25rem;
   font-style: italic;
   font-family: Georgia, serif;
   font-weight: bold;
@@ -40,49 +47,23 @@
   white-space: nowrap;
 }
 
-/* Desktop Navigation */
+/* On mobile by default, desktop links and buttons are hidden */
 .desktopNav {
-  display: flex;
-  gap: 1.25rem;
-  align-items: center;
-  font-size: 0.95rem;
-  color: #2C2F24;
-  margin: 0 auto;
-  flex-wrap: nowrap;
+  display: none;
 }
 
-.link {
-  font-weight: 500;
-  color: #2C2F24;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+.desktopUserArea {
+  display: none;
 }
 
-.activeLink {
-  background-color: #DBDFD0;
-  color: #2C2F24;
-  font-weight: 600;
-  padding: 0.45rem 1.1rem;
-  border-radius: 50px;
+.desktopBookBtn {
+  display: none;
 }
 
-.inactiveLink {
-  background-color: transparent;
-  padding: 0.45rem 0.6rem;
-  border-radius: 50px;
-}
-
-.inactiveLink:hover {
-  color: var(--primary);
-  background-color: #F8F9F5;
-}
-
-/* Actions Area */
 .actionsArea {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.4rem;
   flex-shrink: 0;
 }
 
@@ -93,7 +74,7 @@
   justify-content: center;
   text-decoration: none;
   color: #2C2F24;
-  padding: 0.4rem;
+  padding: 0.35rem;
   border-radius: 50%;
   transition: background-color 0.2s;
   flex-shrink: 0;
@@ -121,81 +102,94 @@
   border: 2px solid white;
 }
 
-.desktopUserArea {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.userMenu {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.loginBtn {
-  font-weight: 600;
-  text-decoration: none;
-  color: #2C2F24;
-  font-size: 0.92rem;
-  padding: 0.4rem 0.75rem;
-  white-space: nowrap;
-}
-
 .langBtn {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.65rem;
+  gap: 0.25rem;
+  padding: 0.3rem 0.55rem;
   border-radius: 50px;
   border: 1.5px solid #2C2F24;
   background-color: #fff;
   cursor: pointer;
   user-select: none;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: all 0.2s ease;
   flex-shrink: 0;
   white-space: nowrap;
 }
 
 .langDesktopText {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.langMobileText {
   display: none;
 }
 
-.desktopBookBtn {
-  padding: 0.5rem 1.25rem;
-  border-color: #2C2F24;
+.langMobileText {
+  display: inline;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #AD343E;
+}
+
+.hamburgerBtn {
+  display: flex;
+  background: none;
+  border: none;
   color: #2C2F24;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.9rem;
-  white-space: nowrap;
+  cursor: pointer;
+  padding: 0.35rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
   flex-shrink: 0;
 }
 
-.adminBadge {
-  color: var(--primary);
-  font-weight: 700;
-  font-size: 0.85rem;
-  text-decoration: none;
-  background-color: #FDF0F0;
-  border: 1px solid #F9D5D7;
-  padding: 0.25rem 0.6rem;
-  border-radius: 50px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+.hamburgerBtn:hover {
+  background-color: #f5f5f3;
 }
 
-.adminBadge:hover {
-  background-color: var(--primary);
-  color: white;
+/* Mobile Drawer (Visible when toggled on mobile) */
+.mobileDrawer {
+  display: block;
+  background-color: #ffffff;
+  border-top: 1px solid #f0f0ee;
+  padding: 1.25rem 1.5rem 2rem 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  animation: slideDown 0.25s ease-out forwards;
+}
+
+.mobileNavLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.mobileLink {
+  padding: 0.75rem 1rem;
+  color: #2C2F24;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.05rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mobileActiveLink {
+  background-color: #DBDFD0;
+  font-weight: 700;
+}
+
+.mobileLink:hover {
+  background-color: #f7f7f5;
+}
+
+.mobileFooterActions {
+  border-top: 1px solid #eee;
+  padding-top: 1.25rem;
+}
+
+.mobileUserBox {
+  margin-bottom: 1rem;
 }
 
 .userNamePill {
@@ -219,8 +213,17 @@
   white-space: nowrap;
 }
 
-.userNamePill:hover {
-  background-color: #F0F0EE;
+.adminBadge {
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background-color: #FDF0F0;
+  border: 1px solid #F9D5D7;
+  padding: 0.25rem 0.6rem;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .iconBtn {
@@ -241,92 +244,6 @@
   background-color: #F8F9F5;
 }
 
-.hamburgerBtn {
-  display: none;
-  background: none;
-  border: none;
-  color: #2C2F24;
-  cursor: pointer;
-  padding: 0.35rem;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-  flex-shrink: 0;
-}
-
-.hamburgerBtn:hover {
-  background-color: #f5f5f3;
-}
-
-/* Mobile Drawer */
-.mobileDrawer {
-  display: none;
-}
-
-/* Responsive Breakpoints - Switches smoothly for Foldables, Tablets (Surface Pro, iPad), and Phones */
-@media (max-width: 1150px) {
-  .desktopNav {
-    display: none;
-  }
-
-  .desktopUserArea {
-    display: none;
-  }
-
-  .desktopBookBtn {
-    display: none;
-  }
-
-  .hamburgerBtn {
-    display: flex;
-  }
-
-  .mobileDrawer {
-    display: block;
-    background-color: #ffffff;
-    border-top: 1px solid #f0f0ee;
-    padding: 1.25rem 1.5rem 2rem 1.5rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    animation: slideDown 0.25s ease-out forwards;
-  }
-
-  .mobileNavLinks {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .mobileLink {
-    padding: 0.75rem 1rem;
-    color: #2C2F24;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.05rem;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-  }
-
-  .mobileActiveLink {
-    background-color: #DBDFD0;
-    font-weight: 700;
-  }
-
-  .mobileLink:hover {
-    background-color: #f7f7f5;
-  }
-
-  .mobileFooterActions {
-    border-top: 1px solid #eee;
-    padding-top: 1.25rem;
-  }
-
-  .mobileUserBox {
-    margin-bottom: 1rem;
-  }
-}
-
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -338,40 +255,124 @@
   }
 }
 
-/* Compact rules for smaller mobile screens (Pixel Fold folded, iPhone, Galaxy Z Fold) */
-@media (max-width: 560px) {
+/* ==========================================================================
+   2. Medium Screens & Tablets (@media min-width: 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
+  .navContainer {
+    padding: 0.75rem 1.25rem;
+    gap: 0.75rem;
+  }
+
+  .logoText {
+    font-size: 1.55rem;
+  }
+
   .langDesktopText {
-    display: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   .langMobileText {
-    display: inline;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #AD343E;
+    display: none;
   }
 
   .langBtn {
-    padding: 0.3rem 0.55rem;
-    gap: 0.25rem;
-  }
-
-  .navContainer {
-    padding: 0.65rem 0.85rem;
-    gap: 0.4rem;
+    padding: 0.35rem 0.65rem;
+    gap: 0.35rem;
   }
 
   .actionsArea {
-    gap: 0.35rem;
+    gap: 0.65rem;
   }
 }
 
-@media (max-width: 360px) {
+/* ==========================================================================
+   3. Large Screens & Desktops (@media min-width: 1150px)
+   ========================================================================== */
+@media (min-width: 1150px) {
   .logoText {
-    font-size: 1.15rem;
+    font-size: 1.75rem;
   }
 
-  .navContainer {
-    padding: 0.5rem 0.65rem;
+  .hamburgerBtn {
+    display: none;
+  }
+
+  .mobileDrawer {
+    display: none !important;
+  }
+
+  /* Show desktop navigation */
+  .desktopNav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    font-size: 0.95rem;
+    color: #2C2F24;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+  }
+
+  .link {
+    font-weight: 500;
+    color: #2C2F24;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .activeLink {
+    background-color: #DBDFD0;
+    color: #2C2F24;
+    font-weight: 600;
+    padding: 0.45rem 1.1rem;
+    border-radius: 50px;
+  }
+
+  .inactiveLink {
+    background-color: transparent;
+    padding: 0.45rem 0.6rem;
+    border-radius: 50px;
+  }
+
+  .inactiveLink:hover {
+    color: var(--primary);
+    background-color: #F8F9F5;
+  }
+
+  /* Show desktop user area */
+  .desktopUserArea {
+    display: flex;
+    align-items: center;
+  }
+
+  .userMenu {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .loginBtn {
+    font-weight: 600;
+    text-decoration: none;
+    color: #2C2F24;
+    font-size: 0.92rem;
+    padding: 0.4rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  .desktopBookBtn {
+    display: inline-flex;
+    padding: 0.5rem 1.25rem;
+    border-color: #2C2F24;
+    color: #2C2F24;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }

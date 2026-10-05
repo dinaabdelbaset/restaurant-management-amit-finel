@@ -1,24 +1,31 @@
+/* ==========================================================================
+   MOBILE-FIRST ADMIN PANEL STYLES
+   Base styles apply to Mobile (320px+)
+   Scale up with @media (min-width: 768px)
+   ========================================================================== */
+
+/* 1. Base (Mobile 320px+) */
 .container {
-  padding: 3rem 1rem;
+  padding: 2rem 0.75rem;
 }
 
 .title {
-  margin-bottom: 1.5rem;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
 }
 
 .navContainer {
   display: flex;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
   border-bottom: 1px solid #ddd;
-  padding-bottom: 1rem;
+  padding-bottom: 0.85rem;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 .navBtn {
-  padding: 0.6rem 1.25rem;
+  padding: 0.5rem 1rem;
   white-space: nowrap;
   background: none;
   border: none;
@@ -26,8 +33,9 @@
   border-radius: 8px;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.45rem;
   font-family: inherit;
+  font-size: 0.88rem;
   transition: all 0.2s ease;
 }
 
@@ -44,7 +52,7 @@
 }
 
 .cardSection {
-  padding: 1.75rem;
+  padding: 1.25rem 1rem;
 }
 
 .tableWrapper {
@@ -71,8 +79,8 @@ html[dir="rtl"] .table {
 }
 
 .th {
-  padding: 0.85rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.75rem 0.85rem;
+  font-size: 0.85rem;
   color: #555;
   white-space: nowrap;
 }
@@ -87,21 +95,21 @@ html[dir="rtl"] .table {
 }
 
 .td {
-  padding: 0.85rem 1rem;
-  font-size: 0.9rem;
+  padding: 0.75rem 0.85rem;
+  font-size: 0.85rem;
 }
 
 .tdBold {
-  padding: 0.85rem 1rem;
+  padding: 0.75rem 0.85rem;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .tdAdmin {
-  padding: 0.85rem 1rem;
+  padding: 0.75rem 0.85rem;
   color: var(--primary);
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 }
 
 .select {
@@ -114,7 +122,7 @@ html[dir="rtl"] .table {
 }
 
 .actionCell {
-  padding: 0.85rem 1rem;
+  padding: 0.75rem 0.85rem;
   display: flex;
   gap: 0.5rem;
   align-items: center;
@@ -186,12 +194,29 @@ html[dir="rtl"] .table {
   cursor: pointer;
 }
 
-@media (max-width: 768px) {
+/* ==========================================================================
+   2. Medium to Large Screens (@media min-width: 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
   .container {
-    padding: 2rem 0.75rem;
+    padding: 3rem 1.5rem;
+  }
+
+  .title {
+    margin-bottom: 1.5rem;
+  }
+
+  .navBtn {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.95rem;
   }
 
   .cardSection {
-    padding: 1.25rem 1rem;
+    padding: 2rem;
+  }
+
+  .th, .td, .tdBold, .tdAdmin {
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
   }
 }

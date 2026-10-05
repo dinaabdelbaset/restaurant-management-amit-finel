@@ -1,4 +1,12 @@
+/* ==========================================================================
+   MOBILE-FIRST HOME PAGE STYLES
+   Base styles apply to Mobile (320px+)
+   Scale up with @media (min-width: 768px) and @media (min-width: 1024px)
+   ========================================================================== */
+
+/* 1. Base (Mobile 320px+) */
 .topBar {
+  display: none;
   background-color: #414536;
   color: white;
   padding: 0.5rem 0;
@@ -27,15 +35,14 @@
 
 .heroSection {
   position: relative;
-  min-height: 85vh;
+  min-height: 65vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-image: url("https://images.unsplash.com/photo-1490818387583-1baba5e638af?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
   background-size: cover;
   background-position: center;
-  background-attachment: scroll;
-  padding: 4rem 1rem;
+  padding: 2.5rem 1rem;
 }
 
 .heroOverlay {
@@ -57,7 +64,7 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.4rem, 6vw, 5rem);
+  font-size: clamp(2.2rem, 5.5vw, 4.5rem);
   margin-bottom: 1.25rem;
   color: #2C2F24;
   line-height: 1.15;
@@ -65,8 +72,8 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  margin-bottom: 2rem;
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  margin-bottom: 1.75rem;
   max-width: 650px;
   margin-left: auto;
   margin-right: auto;
@@ -76,30 +83,37 @@
 
 .heroButtons {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 380px;
+  margin: 0 auto;
+}
+
+.heroButtons a {
+  width: 100%;
+  text-align: center;
 }
 
 .browseSection {
-  padding: 5rem 1rem;
+  padding: 3rem 1rem;
   text-align: center;
 }
 
 .sectionTitle {
-  font-size: clamp(2rem, 4vw, 3rem);
-  margin-bottom: 2.5rem;
+  font-size: clamp(1.85rem, 4vw, 3rem);
+  margin-bottom: 2rem;
   font-family: var(--font-heading);
 }
 
 .browseGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
 }
 
 .browseCard {
-  padding: 2.5rem 1.5rem;
+  padding: 2rem 1.25rem;
   text-align: center;
   border: 1px solid #eaeaec;
   box-shadow: none;
@@ -107,21 +121,20 @@
 
 .healthySection {
   background-color: #F9F9F7;
-  padding: 5rem 0;
+  padding: 3.5rem 0;
   overflow: hidden;
 }
 
 .healthyContainer {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  gap: 3.5rem;
+  gap: 2rem;
 }
 
 .healthyImageWrapper {
-  flex: 1 1 350px;
+  width: 100%;
   position: relative;
-  max-width: 100%;
 }
 
 .healthyImage {
@@ -130,52 +143,95 @@
   display: block;
 }
 
+/* On mobile by default, contactBox sits directly below image without overflowing */
 .contactBox {
-  position: absolute;
-  bottom: -25px;
-  right: -25px;
+  position: static;
+  width: 100%;
   background-color: #414536;
   color: white;
-  padding: 1.75rem;
+  padding: 1.5rem;
   border-radius: var(--radius-md);
-  width: 290px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  margin-top: 1.25rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
-/* Responsive Breakpoints */
-@media (max-width: 868px) {
+/* ==========================================================================
+   2. Medium Screens & Tablets (@media min-width: 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
   .topBar {
-    display: none;
-  }
-
-  .healthyContainer {
-    gap: 2.5rem;
-  }
-
-  .contactBox {
-    position: static;
-    width: 100%;
-    margin-top: 1.5rem;
-    box-sizing: border-box;
+    display: block;
   }
 
   .heroSection {
-    min-height: 70vh;
-    padding: 3rem 1rem;
+    min-height: 75vh;
+    padding: 3.5rem 1.5rem;
   }
-}
 
-@media (max-width: 480px) {
   .heroButtons {
-    flex-direction: column;
-    width: 100%;
+    flex-direction: row;
+    width: auto;
+    max-width: none;
+    justify-content: center;
   }
 
   .heroButtons a {
-    width: 100%;
+    width: auto;
   }
 
   .browseSection {
-    padding: 3rem 1rem;
+    padding: 4.5rem 1.5rem;
+  }
+
+  .browseGrid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .healthySection {
+    padding: 4.5rem 0;
+  }
+
+  .healthyContainer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 3rem;
+  }
+
+  .healthyImageWrapper {
+    flex: 1 1 340px;
+  }
+}
+
+/* ==========================================================================
+   3. Large Screens & Desktops (@media min-width: 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .heroSection {
+    min-height: 85vh;
+    padding: 4.5rem 1rem;
+  }
+
+  .healthySection {
+    padding: 5.5rem 0;
+  }
+
+  .healthyContainer {
+    gap: 3.75rem;
+  }
+
+  /* On large screens, contactBox overlays elegantly on bottom corner */
+  .contactBox {
+    position: absolute;
+    bottom: -25px;
+    right: -25px;
+    width: 290px;
+    margin-top: 0;
+  }
+
+  html[dir="rtl"] .contactBox {
+    right: auto;
+    left: -25px;
   }
 }

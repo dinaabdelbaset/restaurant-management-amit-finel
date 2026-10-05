@@ -1,3 +1,10 @@
+/* ==========================================================================
+   MOBILE-FIRST BOOK A TABLE STYLES
+   Base styles apply to Mobile (320px+)
+   Scale up with @media (min-width: 768px) and @media (min-width: 1024px)
+   ========================================================================== */
+
+/* 1. Base (Mobile 320px+) */
 .pageWrapper {
   background-color: #ffffff;
   position: relative;
@@ -5,17 +12,17 @@
 }
 
 .headerSection {
-  padding-top: 5rem;
-  padding-bottom: 14rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
   text-align: center;
   position: relative;
   z-index: 1;
 }
 
 .heading {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
   font-family: var(--font-heading);
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   color: #2C2F24;
 }
 
@@ -23,7 +30,7 @@
   color: var(--text-gray);
   max-width: 550px;
   margin: 0 auto;
-  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   line-height: 1.6;
 }
 
@@ -34,7 +41,7 @@
 
 .mapBackground {
   width: 100%;
-  height: 520px;
+  height: 220px;
   background-image: url("/map-bg.png");
   background-position: center;
   background-size: cover;
@@ -42,54 +49,54 @@
   opacity: 0.9;
 }
 
+/* On mobile by default, card sits comfortably stacked with no negative absolute offset */
 .formCardOverlay {
-  position: absolute;
-  top: -220px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 760px;
+  position: relative;
+  width: 92%;
+  max-width: 500px;
+  margin: -80px auto 3rem auto;
   background-color: white;
-  border-radius: 24px;
-  padding: 3.5rem 3rem;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  border-radius: 16px;
+  padding: 1.75rem 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   z-index: 10;
 }
 
 .formGrid {
   display: flex;
   flex-direction: column;
-  gap: 1.75rem;
+  gap: 1.25rem;
 }
 
 .formRow {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1.25rem;
 }
 
 .formCol {
-  flex: 1 1 260px;
+  width: 100%;
 }
 
 .formLabel {
   display: block;
   font-weight: 600;
-  margin-bottom: 0.65rem;
+  margin-bottom: 0.5rem;
   color: #2C2F24;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
 .roundedInput {
   width: 100%;
-  padding: 1.1rem 1.4rem;
+  padding: 0.9rem 1.25rem;
   border-radius: 50px;
   border: 1px solid #EAEAEA;
   outline: none;
   color: #444;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   background-color: white;
   transition: border-color 0.2s;
+  box-sizing: border-box;
 }
 
 .roundedInput:focus {
@@ -97,43 +104,82 @@
 }
 
 .submitBtn {
-  padding: 1.15rem;
+  padding: 1rem;
   border-radius: 50px;
-  font-size: 1.05rem;
-  margin-top: 0.5rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
   width: 100%;
   font-weight: 600;
 }
 
-/* Mobile & Tablet Responsiveness */
-@media (max-width: 768px) {
+/* ==========================================================================
+   2. Medium Screens & Tablets (@media min-width: 768px)
+   ========================================================================== */
+@media (min-width: 768px) {
   .headerSection {
-    padding-top: 3.5rem;
-    padding-bottom: 2rem;
+    padding-top: 4.5rem;
+    padding-bottom: 10rem;
   }
 
   .mapBackground {
-    height: 250px;
+    height: 420px;
   }
 
+  /* Switch to overlay layout on tablet */
   .formCardOverlay {
-    position: static;
-    transform: none;
-    width: 92%;
-    margin: -100px auto 4rem auto;
-    padding: 2rem 1.5rem;
-    border-radius: 16px;
+    position: absolute;
+    top: -160px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 88%;
+    max-width: 720px;
+    margin: 0;
+    padding: 2.75rem 2.25rem;
+    border-radius: 20px;
   }
 
   .formRow {
-    gap: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.25rem;
   }
 
   .formCol {
-    flex: 1 1 100%;
+    flex: 1 1 260px;
   }
 
   .roundedInput {
-    padding: 0.9rem 1.2rem;
+    padding: 1rem 1.35rem;
+  }
+}
+
+/* ==========================================================================
+   3. Large Screens & Desktops (@media min-width: 1024px)
+   ========================================================================== */
+@media (min-width: 1024px) {
+  .headerSection {
+    padding-top: 5rem;
+    padding-bottom: 14rem;
+  }
+
+  .mapBackground {
+    height: 520px;
+  }
+
+  .formCardOverlay {
+    top: -220px;
+    max-width: 760px;
+    padding: 3.5rem 3rem;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .roundedInput {
+    padding: 1.15rem 1.45rem;
+  }
+
+  .submitBtn {
+    padding: 1.15rem;
+    font-size: 1.05rem;
   }
 }
