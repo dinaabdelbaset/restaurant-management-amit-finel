@@ -27,9 +27,9 @@ const Login = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#F9F9F7', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4rem 1rem' }}>
-      <div style={{ backgroundColor: 'white', width: '100%', maxWidth: '450px', borderRadius: 'var(--radius-lg)', padding: '3rem 2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '1rem', fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: '#2C2F24' }}>{t('login_title')}</h2>
+    <div style={{ backgroundColor: '#F9F9F7', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(2rem, 5vw, 4rem) 1rem' }}>
+      <div style={{ backgroundColor: 'white', width: '100%', maxWidth: '460px', borderRadius: 'var(--radius-lg)', padding: 'clamp(1.75rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2.25rem)', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '1.25rem', fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#2C2F24' }}>{t('login_title')}</h2>
         
         <div style={{ backgroundColor: '#f0f4f8', padding: '1rem', borderRadius: '8px', marginBottom: '2rem', textAlign: 'center', fontSize: '0.9rem', border: '1px dashed #cbd5e1' }}>
           <strong>{t('admin_credentials_box')}</strong><br />

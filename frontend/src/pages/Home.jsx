@@ -53,7 +53,7 @@ const Home = () => {
 
       {/* Browse Our Menu Section */}
       <section className={`container ${styles.browseSection}`}>
-        <h2 className={styles.sectionTitle}>{t('browse_title')}</h2>
+        <h2 style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '2.5rem', fontFamily: 'var(--font-heading)', color: '#2C2F24' }}>{t('browse_title')}</h2>
         <div className={styles.browseGrid}>
           {[
             { title: t('cat_breakfast'), category: 'Breakfast', icon: '☕', desc: t('cat_breakfast_desc') },
@@ -63,8 +63,8 @@ const Home = () => {
           ].map((item, i) => (
             <div key={i} className={`card ${styles.browseCard}`}>
               <div style={{ fontSize: '2.5rem', marginBottom: '1rem', color: 'var(--primary)' }}>{item.icon}</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>{item.title}</h3>
-              <p style={{ color: 'var(--text-gray)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>{item.desc}</p>
+              <h3 style={{ fontSize: '1.4rem', marginBottom: '0.75rem' }}>{item.title}</h3>
+              <p style={{ color: 'var(--text-gray)', fontSize: '0.9rem', marginBottom: '1.25rem' }}>{item.desc}</p>
               <Link to={`/menu?category=${item.category}`} style={{ color: 'var(--primary)', fontWeight: 'bold' }}>{t('explore_menu')}</Link>
             </div>
           ))}
@@ -78,31 +78,31 @@ const Home = () => {
             <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Healthy Food" className={styles.healthyImage} />
             {/* Overlapping Contact Box */}
             <div className={styles.contactBox}>
-              <h4 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', color: 'white' }}>{t('visit_us')}</h4>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.9rem' }}><Phone size={16} /> (414) 857 - 0107</p>
-              <p style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem', fontSize: '0.9rem' }}><Mail size={16} /> yummy@bistrobliss.com</p>
+              <h4 style={{ fontSize: '1.2rem', marginBottom: '1.25rem', color: 'white' }}>{t('visit_us')}</h4>
+              <p style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', fontSize: '0.9rem' }}><Phone size={16} /> (414) 857 - 0107</p>
+              <p style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', fontSize: '0.9rem' }}><Mail size={16} /> yummy@bistrobliss.com</p>
               <p style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.9rem' }}><MapPin size={16} style={{flexShrink:0, marginTop:'4px'}} /> {t('address_val')}</p>
             </div>
           </div>
-          <div style={{ flex: '1 1 400px' }}>
-            <h2 style={{ fontSize: '3.5rem', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', lineHeight: 1.2 }}>{t('healthy_title')}</h2>
-            <p style={{ color: 'var(--text-gray)', marginBottom: '1.5rem', fontSize: '1.1rem' }}>
+          <div style={{ flex: '1 1 300px', minWidth: 0 }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', marginBottom: '1.25rem', fontFamily: 'var(--font-heading)', lineHeight: 1.2 }}>{t('healthy_title')}</h2>
+            <p style={{ color: 'var(--text-gray)', marginBottom: '1.25rem', fontSize: '1.05rem', lineHeight: 1.6 }}>
               {t('healthy_desc1')}
             </p>
-            <p style={{ color: 'var(--text-gray)', marginBottom: '2.5rem', fontSize: '1.1rem' }}>
+            <p style={{ color: 'var(--text-gray)', marginBottom: '2rem', fontSize: '1.05rem', lineHeight: 1.6 }}>
               {t('healthy_desc2')}
             </p>
-            <Link to="/about" className="btn btn-outline" style={{ borderColor: '#2C2F24', color: '#2C2F24', padding: '1rem 2rem' }}>{t('more_about_us')}</Link>
+            <Link to="/about" className="btn btn-outline" style={{ borderColor: '#2C2F24', color: '#2C2F24', padding: '0.85rem 1.75rem' }}>{t('more_about_us')}</Link>
           </div>
         </div>
       </section>
 
       {/* Services Section */}
-      <section className="container" style={{ padding: '6rem 1rem' }}>
-        <h2 style={{ fontSize: '3.5rem', marginBottom: '3rem', fontFamily: 'var(--font-heading)', maxWidth: '600px' }}>
+      <section className="container" style={{ padding: 'clamp(3rem, 6vw, 5rem) 1rem' }}>
+        <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', marginBottom: '2.5rem', fontFamily: 'var(--font-heading)', maxWidth: '650px' }}>
           {t('services_title')}
         </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1.5rem' }}>
           {[
             { title: t('srv_caterings'), img: 'https://images.unsplash.com/photo-1555244162-803834f70033?w=800&q=80' },
             { title: t('srv_birthdays'), img: 'https://images.unsplash.com/photo-1533143708019-ea5cfa80213e?w=800&q=80' },
@@ -110,53 +110,53 @@ const Home = () => {
             { title: t('srv_events'), img: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80' },
           ].map((item, i) => (
             <div key={i} style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden' }}>
-              <img src={item.img} alt={item.title} style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: 'var(--radius-md)', marginBottom: '1.5rem' }} />
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>{item.title}</h3>
-              <p style={{ color: 'var(--text-gray)' }}>{t('srv_desc')}</p>
+              <img src={item.img} alt={item.title} style={{ width: '100%', height: '260px', objectFit: 'cover', borderRadius: 'var(--radius-md)', marginBottom: '1.25rem' }} />
+              <h3 style={{ fontSize: '1.35rem', marginBottom: '0.5rem', fontFamily: 'var(--font-heading)' }}>{item.title}</h3>
+              <p style={{ color: 'var(--text-gray)', fontSize: '0.95rem' }}>{t('srv_desc')}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Fastest Food Delivery Section */}
-      <section style={{ backgroundColor: '#F9F9F7', padding: '6rem 0' }}>
-        <div className="container" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '5rem' }}>
-          <div style={{ flex: '1 1 500px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
-             <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chef" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--radius-md)', gridRow: '1 / 3' }} />
-             <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Dish 1" style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
-             <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Dish 2" style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
+      <section style={{ backgroundColor: '#F9F9F7', padding: 'clamp(3rem, 6vw, 5rem) 0' }}>
+        <div className="container" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '2.5rem' }}>
+          <div style={{ flex: '1 1 300px', minWidth: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '1rem' }}>
+             <img src="https://images.unsplash.com/photo-1556740714-a8395b3bf30f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Chef" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
+             <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Dish 1" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
+             <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Dish 2" style={{ width: '100%', height: '220px', objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
           </div>
-          <div style={{ flex: '1 1 400px' }}>
-            <h2 style={{ fontSize: '3.5rem', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', lineHeight: 1.2 }}>{t('delivery_title')}</h2>
-            <p style={{ color: 'var(--text-gray)', marginBottom: '2.5rem', fontSize: '1.1rem' }}>
+          <div style={{ flex: '1 1 300px', minWidth: 0 }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', marginBottom: '1.25rem', fontFamily: 'var(--font-heading)', lineHeight: 1.2 }}>{t('delivery_title')}</h2>
+            <p style={{ color: 'var(--text-gray)', marginBottom: '2rem', fontSize: '1.05rem', lineHeight: 1.6 }}>
               {t('delivery_subtitle')}
             </p>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.5rem', padding: 0 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '1.1rem', fontWeight: 500 }}><CheckCircle color="var(--primary)" /> {t('del_feature_1')}</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '1.1rem', fontWeight: 500 }}><CheckCircle color="var(--primary)" /> {t('del_feature_2')}</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '1.1rem', fontWeight: 500 }}><CheckCircle color="var(--primary)" /> {t('del_feature_3')}</li>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.25rem', padding: 0 }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', fontSize: '1.05rem', fontWeight: 500 }}><CheckCircle color="var(--primary)" size={20} /> {t('del_feature_1')}</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', fontSize: '1.05rem', fontWeight: 500 }}><CheckCircle color="var(--primary)" size={20} /> {t('del_feature_2')}</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', fontSize: '1.05rem', fontWeight: 500 }}><CheckCircle color="var(--primary)" size={20} /> {t('del_feature_3')}</li>
             </ul>
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="container" style={{ padding: '6rem 1rem', textAlign: 'center' }}>
-        <h2 style={{ fontSize: '3.5rem', marginBottom: '4rem', fontFamily: 'var(--font-heading)' }}>{t('testimonials_title')}</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', textAlign: 'start' }}>
+      <section className="container" style={{ padding: 'clamp(3rem, 6vw, 5rem) 1rem', textAlign: 'center' }}>
+        <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', marginBottom: '3rem', fontFamily: 'var(--font-heading)' }}>{t('testimonials_title')}</h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', textAlign: 'start' }}>
           {[
             { title: t('t1_title'), text: t('t1_text'), name: t('t1_name'), loc: t('t1_loc'), img: 'https://randomuser.me/api/portraits/women/44.jpg' },
             { title: t('t2_title'), text: t('t2_text'), name: t('t2_name'), loc: t('t2_loc'), img: 'https://randomuser.me/api/portraits/men/32.jpg' },
             { title: t('t3_title'), text: t('t3_text'), name: t('t3_name'), loc: t('t3_loc'), img: 'https://randomuser.me/api/portraits/women/68.jpg' }
           ].map((tItem, i) => (
-             <div key={i} className="card" style={{ padding: '2.5rem', backgroundColor: '#F9F9F7', boxShadow: 'none', border: 'none' }}>
-                <h3 style={{ color: 'var(--primary)', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', fontSize: '1.5rem' }}>"{tItem.title}"</h3>
-                <p style={{ color: 'var(--text-gray)', marginBottom: '2rem', fontStyle: 'italic', lineHeight: 1.6 }}>{tItem.text}</p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <img src={tItem.img} alt={tItem.name} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+             <div key={i} className="card" style={{ padding: '2rem 1.5rem', backgroundColor: '#F9F9F7', boxShadow: 'none', border: 'none' }}>
+                <h3 style={{ color: 'var(--primary)', marginBottom: '1rem', fontFamily: 'var(--font-heading)', fontSize: '1.3rem' }}>"{tItem.title}"</h3>
+                <p style={{ color: 'var(--text-gray)', marginBottom: '1.5rem', fontStyle: 'italic', lineHeight: 1.6, fontSize: '0.95rem' }}>{tItem.text}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+                  <img src={tItem.img} alt={tItem.name} style={{ width: '45px', height: '45px', borderRadius: '50%', objectFit: 'cover' }} />
                   <div>
-                    <h4 style={{ fontSize: '1rem', margin: 0 }}>{tItem.name}</h4>
-                    <span style={{ color: 'var(--text-gray)', fontSize: '0.875rem' }}>{tItem.loc}</span>
+                    <h4 style={{ fontSize: '0.95rem', margin: 0 }}>{tItem.name}</h4>
+                    <span style={{ color: 'var(--text-gray)', fontSize: '0.82rem' }}>{tItem.loc}</span>
                   </div>
                 </div>
              </div>
@@ -165,11 +165,11 @@ const Home = () => {
       </section>
 
       {/* Our Blog & Articles Section */}
-      <section style={{ backgroundColor: '#F9F9F7', padding: '6rem 0' }}>
+      <section style={{ backgroundColor: '#F9F9F7', padding: 'clamp(3rem, 6vw, 5rem) 0' }}>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <h2 style={{ fontSize: '3.5rem', fontFamily: 'var(--font-heading)', margin: 0 }}>{t('blog_heading')}</h2>
-            <Link to="/blog" className="btn btn-primary" style={{ padding: '1rem 2rem', borderRadius: '50px' }}>{t('read_all')}</Link>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+            <h2 style={{ fontSize: 'clamp(2rem, 4.5vw, 3.2rem)', fontFamily: 'var(--font-heading)', margin: 0 }}>{t('blog_heading')}</h2>
+            <Link to="/blog" className="btn btn-primary" style={{ padding: '0.75rem 1.75rem', borderRadius: '50px' }}>{t('read_all')}</Link>
           </div>
           
           {(() => {
@@ -195,27 +195,27 @@ const Home = () => {
             return (
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', width: '100%' }}>
                 {/* Main Featured Article (Left) */}
-                <Link to={`/blog/${featured.id}`} style={{ flex: '1 1 500px', backgroundColor: 'white', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', textDecoration: 'none', color: 'inherit' }}>
-                  <div style={{ height: '400px', width: '100%' }}>
+                <Link to={`/blog/${featured.id}`} style={{ flex: '1 1 320px', minWidth: 0, backgroundColor: 'white', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', textDecoration: 'none', color: 'inherit' }}>
+                  <div style={{ height: '260px', width: '100%' }}>
                     <img src={getImgSrc(featured.image)} alt={featured.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
-                  <div style={{ padding: '2rem', flex: 1 }}>
-                    <span style={{ color: 'var(--text-gray)', fontSize: '0.9rem', marginBottom: '1rem', display: 'block' }}>{featured.created_at ? new Date(featured.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (featured.date || 'Recent')}</span>
-                    <h3 style={{ fontSize: '1.5rem', color: '#2C2F24', fontWeight: 600, marginBottom: '1rem', lineHeight: 1.4 }}>{featured.title}</h3>
-                    <p style={{ color: 'var(--text-gray)', lineHeight: 1.6 }}>{featured.content?.substring(0, 140)}...</p>
+                  <div style={{ padding: '1.75rem', flex: 1 }}>
+                    <span style={{ color: 'var(--text-gray)', fontSize: '0.85rem', marginBottom: '0.75rem', display: 'block' }}>{featured.created_at ? new Date(featured.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (featured.date || 'Recent')}</span>
+                    <h3 style={{ fontSize: '1.3rem', color: '#2C2F24', fontWeight: 600, marginBottom: '0.75rem', lineHeight: 1.4 }}>{featured.title}</h3>
+                    <p style={{ color: 'var(--text-gray)', lineHeight: 1.6, fontSize: '0.95rem' }}>{featured.content?.substring(0, 140)}...</p>
                   </div>
                 </Link>
 
                 {/* Grid of Smaller Articles (Right) */}
-                <div style={{ flex: '1 1 500px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.5rem' }}>
+                <div style={{ flex: '1 1 320px', minWidth: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
                   {subArticles.map((article) => (
                     <Link to={`/blog/${article.id}`} key={article.id} style={{ backgroundColor: 'white', borderRadius: 'var(--radius-md)', overflow: 'hidden', boxShadow: '0 4px 15px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column', textDecoration: 'none', color: 'inherit' }}>
-                      <div style={{ height: '160px', width: '100%' }}>
+                      <div style={{ height: '150px', width: '100%' }}>
                         <img src={getImgSrc(article.image || article.img)} alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
-                      <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ color: 'var(--text-gray)', fontSize: '0.85rem', marginBottom: '0.5rem', display: 'block' }}>{article.created_at ? new Date(article.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (article.date || 'Recent')}</span>
-                        <h3 style={{ fontSize: '1.1rem', color: '#2C2F24', fontWeight: 600, lineHeight: 1.4 }}>{article.title}</h3>
+                      <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                        <span style={{ color: 'var(--text-gray)', fontSize: '0.8rem', marginBottom: '0.4rem', display: 'block' }}>{article.created_at ? new Date(article.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (article.date || 'Recent')}</span>
+                        <h3 style={{ fontSize: '1.05rem', color: '#2C2F24', fontWeight: 600, lineHeight: 1.4 }}>{article.title}</h3>
                       </div>
                     </Link>
                   ))}

@@ -123,29 +123,29 @@ const BlogDetails = () => {
   return (
     <div style={{ backgroundColor: '#F9F9F7', paddingBottom: '0' }}>
       
-      <div className="container" style={{ paddingTop: '6rem', paddingBottom: '4rem', maxWidth: '800px' }}>
+      <div className="container" style={{ paddingTop: 'clamp(3rem, 6vw, 5rem)', paddingBottom: '3rem', maxWidth: '850px' }}>
         {/* Title */}
-        <h1 style={{ fontSize: '3.5rem', fontFamily: 'var(--font-heading)', color: '#2C2F24', textAlign: 'center', lineHeight: 1.2, marginBottom: '3rem' }}>
+        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontFamily: 'var(--font-heading)', color: '#2C2F24', textAlign: 'center', lineHeight: 1.25, marginBottom: '2rem' }}>
           {post.title}
         </h1>
 
         {/* Main Image */}
-        <div style={{ width: '100%', height: '500px', marginBottom: '3rem' }}>
-          <img src={post.image?.startsWith('/') ? `${import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:8000'}${post.image}` : (post.image || "https://images.unsplash.com/photo-1556910110-a5a63dfd393c?w=1200&h=800&fit=crop")} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
+        <div style={{ width: '100%', aspectRatio: '16/9', maxHeight: '480px', marginBottom: '2.5rem', overflow: 'hidden', borderRadius: 'var(--radius-md)' }}>
+          <img src={post.image?.startsWith('/') ? `${import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:8000'}${post.image}` : (post.image || "https://images.unsplash.com/photo-1556910110-a5a63dfd393c?w=1200&h=800&fit=crop")} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
 
         {/* Content Section */}
-        <div style={{ color: '#414536', lineHeight: 1.8, fontSize: '1.1rem' }} dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div style={{ color: '#414536', lineHeight: 1.8, fontSize: 'clamp(1rem, 2vw, 1.1rem)' }} dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
 
       {/* Read More Articles Section */}
-      <div style={{ backgroundColor: 'white', padding: '6rem 0' }}>
+      <div style={{ backgroundColor: 'white', padding: 'clamp(3rem, 6vw, 5rem) 0' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <h2 style={{ fontSize: '3rem', fontFamily: 'var(--font-heading)', color: '#2C2F24', marginBottom: '1rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.75rem)', fontFamily: 'var(--font-heading)', color: '#2C2F24', marginBottom: '1rem' }}>
               {isAr ? 'مقالات وأخبار طهي أخرى' : 'Read More Articles'}
             </h2>
-            <p style={{ color: 'var(--text-gray)', maxWidth: '500px', margin: '0 auto', fontSize: '1.1rem' }}>
+            <p style={{ color: 'var(--text-gray)', maxWidth: '550px', margin: '0 auto', fontSize: '1.05rem', lineHeight: 1.6 }}>
               {isAr ? 'اكتشف المزيد من المقالات المميزة والنصائح الحصرية من كبار الطهاة لدينا.' : 'We consider all the drivers of change gives you the components you need to create a truly delicious journey.'}
             </p>
           </div>

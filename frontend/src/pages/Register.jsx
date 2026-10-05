@@ -35,9 +35,9 @@ const Register = () => {
   };
 
   return (
-    <div style={{ backgroundColor: '#F9F9F7', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '4rem 1rem' }}>
-      <div style={{ backgroundColor: 'white', width: '100%', maxWidth: '450px', borderRadius: 'var(--radius-lg)', padding: '3rem 2rem', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem', fontFamily: 'var(--font-heading)', fontSize: '2.5rem', color: '#2C2F24' }}>{t('register_title')}</h2>
+    <div style={{ backgroundColor: '#F9F9F7', minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(2rem, 5vw, 4rem) 1rem' }}>
+      <div style={{ backgroundColor: 'white', width: '100%', maxWidth: '460px', borderRadius: 'var(--radius-lg)', padding: 'clamp(1.75rem, 5vw, 3rem) clamp(1.25rem, 4vw, 2.25rem)', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', color: '#2C2F24' }}>{t('register_title')}</h2>
         
         {error && (
           <div style={{ backgroundColor: '#ffebee', color: 'var(--primary)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', textAlign: 'center', fontSize: '0.9rem' }}>
