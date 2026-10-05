@@ -1,37 +1,139 @@
-.container {
-  padding: 4rem 1rem;
-  max-width: 800px;
-  margin: 0 auto;
+.pageWrapper {
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
 }
 
-.title {
+.headerSection {
+  padding-top: 5rem;
+  padding-bottom: 14rem;
   text-align: center;
-  margin-bottom: 2rem;
-  font-family: var(--font-heading);
+  position: relative;
+  z-index: 1;
 }
 
-.form {
+.heading {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-family: var(--font-heading);
+  margin-bottom: 1.25rem;
+  color: #2C2F24;
+}
+
+.subheading {
+  color: var(--text-gray);
+  max-width: 550px;
+  margin: 0 auto;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  line-height: 1.6;
+}
+
+.mapSection {
+  position: relative;
+  width: 100%;
+}
+
+.mapBackground {
+  width: 100%;
+  height: 520px;
+  background-image: url("/map-bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+}
+
+.formCardOverlay {
+  position: absolute;
+  top: -220px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 760px;
+  background-color: white;
+  border-radius: 24px;
+  padding: 3.5rem 3rem;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  z-index: 10;
+}
+
+.formGrid {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.75rem;
 }
 
-.row {
+.formRow {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 1.25rem;
 }
 
-.inputGroup {
-  flex: 1 1 200px;
+.formCol {
+  flex: 1 1 260px;
 }
 
-.label {
+.formLabel {
   display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+  color: #2C2F24;
+  font-size: 0.95rem;
+}
+
+.roundedInput {
+  width: 100%;
+  padding: 1.1rem 1.4rem;
+  border-radius: 50px;
+  border: 1px solid #EAEAEA;
+  outline: none;
+  color: #444;
+  font-size: 0.95rem;
+  background-color: white;
+  transition: border-color 0.2s;
+}
+
+.roundedInput:focus {
+  border-color: var(--primary);
 }
 
 .submitBtn {
-  margin-top: 1rem;
+  padding: 1.15rem;
+  border-radius: 50px;
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+  width: 100%;
+  font-weight: 600;
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 768px) {
+  .headerSection {
+    padding-top: 3.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .mapBackground {
+    height: 250px;
+  }
+
+  .formCardOverlay {
+    position: static;
+    transform: none;
+    width: 92%;
+    margin: -100px auto 4rem auto;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+  }
+
+  .formRow {
+    gap: 1rem;
+  }
+
+  .formCol {
+    flex: 1 1 100%;
+  }
+
+  .roundedInput {
+    padding: 0.9rem 1.2rem;
+  }
 }

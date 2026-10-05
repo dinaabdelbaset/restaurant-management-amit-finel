@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { User, LogOut } from 'lucide-react';
+import { User, LogOut, Menu, X, ShoppingBag } from 'lucide-react';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
@@ -11,6 +11,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [cartCount, setCartCount] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const updateCartCount = () => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -23,8 +24,14 @@ const Navbar = () => {
     return () => window.removeEventListener('cartUpdated', updateCartCount);
   }, []);
 
+  // Close mobile menu whenever path changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = async () => {
     await logout();
+    setMobileMenuOpen(false);
     navigate('/');
   };
 
@@ -38,13 +45,12 @@ const Navbar = () => {
 
   return (
     <header className={styles.header}>
-
       {/* Main Navbar */}
       <div className={`container ${styles.navContainer}`}>
         
         {/* Logo */}
         <Link to="/" className={styles.logo}>
-          <svg width="35" height="35" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="32" height="32" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 32C10 44.1503 19.8497 54 32 54C44.1503 54 54 44.1503 54 32" stroke="#AD343E" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M4 32H60" stroke="#AD343E" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M38 12L26 32" stroke="#AD343E" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"/>
@@ -54,8 +60,8 @@ const Navbar = () => {
           <span className={styles.logoText}>Bistro Bliss</span>
         </Link>
 
-        {/* Links */}
-        <nav className={styles.navLinks}>
+        {/* Desktop Links */}
+        <nav className={styles.desktopNav}>
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path || (link.path === '/' && location.pathname === '');
             return (
@@ -70,42 +76,41 @@ const Navbar = () => {
           })}
         </nav>
 
-        {/* Right Section: User Controls + Language + Book Table */}
+        {/* Right Actions Area */}
         <div className={styles.actionsArea}>
-          {user ? (
-            <div className={styles.userMenu}>
-              <Link to="/order" style={{ position: 'relative', display: 'flex', alignItems: 'center', textDecoration: 'none', color: '#2C2F24', padding: '0.3rem' }} title={t('cart')}>
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                {cartCount > 0 && (
-                  <span className={styles.cartBadge}>
-                    {cartCount}
-                  </span>
+          {/* Cart Icon */}
+          <Link to="/order" className={styles.cartIconBtn} title={t('cart')}>
+            <ShoppingBag size={22} />
+            {cartCount > 0 && (
+              <span className={styles.cartBadge}>
+                {cartCount}
+              </span>
+            )}
+          </Link>
+
+          {/* Desktop User Controls */}
+          <div className={styles.desktopUserArea}>
+            {user ? (
+              <div className={styles.userMenu}>
+                {user.role === 'admin' && (
+                  <Link to="/admin" className={styles.adminBadge} title={t('admin')}>
+                    {t('admin')}
+                  </Link>
                 )}
-              </Link>
 
-              {user.role === 'admin' && (
-                <Link to="/admin" className={styles.adminBadge} title={t('admin')}>
-                  {t('admin')}
+                <Link to="/profile" className={styles.userNamePill} title={user.name}>
+                  <User size={16} />
+                  <span className={styles.userNameText}>{user.name}</span>
                 </Link>
-              )}
 
-              <Link to="/profile" className={styles.userNamePill} title={user.name}>
-                <User size={16} />
-                <span style={{ maxWidth: '110px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.name}</span>
-              </Link>
-
-              <button onClick={handleLogout} className={styles.iconBtn} title={t('logout')}>
-                <LogOut size={17} />
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', alignItems: 'center', marginInlineEnd: '0.25rem' }}>
-              <Link to="/login" style={{ fontWeight: 600, textDecoration: 'none', color: '#2C2F24', fontSize: '0.92rem', padding: '0.4rem 0.75rem' }}>{t('login')}</Link>
-            </div>
-          )}
-
-          {/* Divider */}
-          <div className={styles.divider}></div>
+                <button onClick={handleLogout} className={styles.iconBtn} title={t('logout')}>
+                  <LogOut size={17} />
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className={styles.loginBtn}>{t('login')}</Link>
+            )}
+          </div>
 
           {/* Language Switcher */}
           <div 
@@ -113,59 +118,99 @@ const Navbar = () => {
             role="button"
             tabIndex={0}
             onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleLanguage(); }}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              padding: '0.4rem 0.75rem',
-              borderRadius: '50px',
-              border: '1.5px solid #2C2F24',
-              backgroundColor: '#fff',
-              cursor: 'pointer',
-              userSelect: 'none',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
-              transition: 'all 0.2s ease',
-              flexShrink: 0
-            }}
+            className={styles.langBtn}
             title={language === 'en' ? 'Switch to Arabic / التبديل للعربية' : 'Switch to English / التبديل للإنجليزية'}
           >
-            <span style={{ fontSize: '0.95rem' }}>🌐</span>
+            <span style={{ fontSize: '0.9rem' }}>🌐</span>
             <span style={{ 
               fontWeight: language === 'en' ? '800' : '500', 
               color: language === 'en' ? '#AD343E' : '#777',
-              fontSize: '0.85rem'
+              fontSize: '0.8rem'
             }}>EN</span>
-            <span style={{ color: '#ccc', fontSize: '0.75rem' }}>|</span>
+            <span style={{ color: '#ccc', fontSize: '0.7rem' }}>|</span>
             <span style={{ 
               fontWeight: language === 'ar' ? '800' : '500', 
               color: language === 'ar' ? '#AD343E' : '#777',
-              fontSize: '0.85rem'
+              fontSize: '0.8rem'
             }}>عربي</span>
           </div>
 
-          {/* Book A Table CTA */}
+          {/* Desktop Book Table CTA */}
           <Link 
             to="/book-table" 
-            className="btn btn-outline" 
-            style={{ 
-              padding: '0.55rem 1.35rem', 
-              borderColor: '#2C2F24', 
-              color: '#2C2F24', 
-              borderRadius: '50px', 
-              textDecoration: 'none', 
-              fontWeight: 'bold',
-              fontSize: '0.9rem',
-              whiteSpace: 'nowrap',
-              flexShrink: 0
-            }}
+            className={`btn btn-outline ${styles.desktopBookBtn}`}
           >
             {t('book_a_table')}
           </Link>
+
+          {/* Mobile Hamburger Toggle Button */}
+          <button 
+            type="button" 
+            className={styles.hamburgerBtn}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
         </div>
-        
       </div>
+
+      {/* Mobile Drawer Menu */}
+      {mobileMenuOpen && (
+        <div className={styles.mobileDrawer}>
+          <nav className={styles.mobileNavLinks}>
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path || (link.path === '/' && location.pathname === '');
+              return (
+                <Link 
+                  key={link.path} 
+                  to={link.path} 
+                  className={`${styles.mobileLink} ${isActive ? styles.mobileActiveLink : ''}`}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className={styles.mobileFooterActions}>
+            {user ? (
+              <div className={styles.mobileUserBox}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', marginBottom: '0.75rem' }}>
+                  <Link to="/profile" className={styles.userNamePill} style={{ backgroundColor: '#f0f0ee', padding: '0.5rem 1rem' }}>
+                    <User size={18} />
+                    <span>{user.name}</span>
+                  </Link>
+                  {user.role === 'admin' && (
+                    <Link to="/admin" className={styles.adminBadge}>
+                      {t('admin')}
+                    </Link>
+                  )}
+                </div>
+                <button onClick={handleLogout} className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', gap: '0.5rem', color: '#c62828', borderColor: '#c62828' }}>
+                  <LogOut size={16} />
+                  <span>{t('logout')}</span>
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', marginBottom: '0.5rem' }}>
+                {t('login')}
+              </Link>
+            )}
+
+            <Link 
+              to="/book-table" 
+              className="btn btn-primary" 
+              style={{ width: '100%', justifyContent: 'center', marginTop: '0.5rem' }}
+            >
+              {t('book_a_table')}
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
 
 export default Navbar;
+

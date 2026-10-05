@@ -457,50 +457,52 @@ const AdminPanel = () => {
         {tab === 'bookings' && (
           <div className={`card ${styles.cardSection}`}>
             <h2>{isAr ? `إدارة الحجوزات (${bookings.length})` : `Manage Bookings (${bookings.length})`}</h2>
-            <table className={styles.table}>
-              <thead>
-                <tr className={styles.tableHeader}>
-                  <th className={styles.th}>{isAr ? 'العميل' : 'User'}</th>
-                  <th className={styles.th}>{isAr ? 'التاريخ والوقت' : 'Date & Time'}</th>
-                  <th className={styles.th}>{isAr ? 'الضيوف' : 'Guests'}</th>
-                  <th className={styles.th}>{isAr ? 'الحالة' : 'Status'}</th>
-                  <th className={styles.th}>{isAr ? 'الإجراء' : 'Actions'}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {bookings.map(b => (
-                  <tr key={b.id} className={styles.tr}>
-                    <td className={styles.td}>{b.user.name}</td>
-                    <td className={styles.td}>{b.booking_date} {b.booking_time}</td>
-                    <td className={styles.td}>{b.guests}</td>
-                    <td className={styles.td}>
-                      <span style={{
-                        padding: '0.25rem 0.6rem',
-                        borderRadius: '50px',
-                        fontSize: '0.8rem',
-                        fontWeight: 'bold',
-                        backgroundColor: b.status === 'Accepted' ? '#E8F5E9' : (b.status === 'Rejected' ? '#FFEBEE' : '#FFF3E0'),
-                        color: b.status === 'Accepted' ? '#2e7d32' : (b.status === 'Rejected' ? '#c62828' : '#e65100'),
-                      }}>
-                        {b.status === 'Accepted' ? (isAr ? '✔ تم القبول' : '✔ Accepted') :
-                         b.status === 'Rejected' ? (isAr ? '✖ مرفوض' : '✖ Rejected') :
-                         (isAr ? '⏳ قيد الانتظار' : '⏳ Pending')}
-                      </span>
-                    </td>
-                    <td className={styles.actionCell}>
-                      {b.status === 'Pending' ? (
-                        <div style={{ display: 'flex', gap: '0.4rem' }}>
-                          <button onClick={() => updateBookingStatus(b.id, 'Accepted')} style={{ backgroundColor: '#2e7d32', color: 'white', border: 'none', borderRadius: '6px', padding: '0.4rem 0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem' }}>{isAr ? '✔ قبول الحجز' : '✔ Accept'}</button>
-                          <button onClick={() => updateBookingStatus(b.id, 'Rejected')} style={{ backgroundColor: '#fff', color: '#c62828', border: '1.5px solid #c62828', borderRadius: '6px', padding: '0.4rem 0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem' }}>{isAr ? '✖ رفض' : '✖ Reject'}</button>
-                        </div>
-                      ) : (
-                        <button onClick={() => updateBookingStatus(b.id, 'Pending')} style={{ color: '#666', background: 'none', border: 'none', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.75rem' }}>{isAr ? 'إعادة تعيين' : 'Reset'}</button>
-                      )}
-                    </td>
+            <div className={styles.tableWrapper}>
+              <table className={styles.table}>
+                <thead>
+                  <tr className={styles.tableHeader}>
+                    <th className={styles.th}>{isAr ? 'العميل' : 'User'}</th>
+                    <th className={styles.th}>{isAr ? 'التاريخ والوقت' : 'Date & Time'}</th>
+                    <th className={styles.th}>{isAr ? 'الضيوف' : 'Guests'}</th>
+                    <th className={styles.th}>{isAr ? 'الحالة' : 'Status'}</th>
+                    <th className={styles.th}>{isAr ? 'الإجراء' : 'Actions'}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {bookings.map(b => (
+                    <tr key={b.id} className={styles.tr}>
+                      <td className={styles.td}>{b.user.name}</td>
+                      <td className={styles.td}>{b.booking_date} {b.booking_time}</td>
+                      <td className={styles.td}>{b.guests}</td>
+                      <td className={styles.td}>
+                        <span style={{
+                          padding: '0.25rem 0.6rem',
+                          borderRadius: '50px',
+                          fontSize: '0.8rem',
+                          fontWeight: 'bold',
+                          backgroundColor: b.status === 'Accepted' ? '#E8F5E9' : (b.status === 'Rejected' ? '#FFEBEE' : '#FFF3E0'),
+                          color: b.status === 'Accepted' ? '#2e7d32' : (b.status === 'Rejected' ? '#c62828' : '#e65100'),
+                        }}>
+                          {b.status === 'Accepted' ? (isAr ? '✔ تم القبول' : '✔ Accepted') :
+                           b.status === 'Rejected' ? (isAr ? '✖ مرفوض' : '✖ Rejected') :
+                           (isAr ? '⏳ قيد الانتظار' : '⏳ Pending')}
+                        </span>
+                      </td>
+                      <td className={styles.actionCell}>
+                        {b.status === 'Pending' ? (
+                          <div style={{ display: 'flex', gap: '0.4rem' }}>
+                            <button onClick={() => updateBookingStatus(b.id, 'Accepted')} style={{ backgroundColor: '#2e7d32', color: 'white', border: 'none', borderRadius: '6px', padding: '0.4rem 0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem' }}>{isAr ? '✔ قبول الحجز' : '✔ Accept'}</button>
+                            <button onClick={() => updateBookingStatus(b.id, 'Rejected')} style={{ backgroundColor: '#fff', color: '#c62828', border: '1.5px solid #c62828', borderRadius: '6px', padding: '0.4rem 0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '0.82rem' }}>{isAr ? '✖ رفض' : '✖ Reject'}</button>
+                          </div>
+                        ) : (
+                          <button onClick={() => updateBookingStatus(b.id, 'Pending')} style={{ color: '#666', background: 'none', border: 'none', textDecoration: 'underline', cursor: 'pointer', fontSize: '0.75rem' }}>{isAr ? 'إعادة تعيين' : 'Reset'}</button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
 
@@ -640,30 +642,32 @@ const AdminPanel = () => {
         {tab === 'users' && (
           <div className={`card ${styles.cardSection}`}>
             <h2>{isAr ? `المستخدمين المسجلين (${users.length})` : `Registered Users (${users.length})`}</h2>
-            <table className={styles.table}>
-              <thead>
-                <tr className={styles.tableHeader}>
-                  <th className={styles.th}>{isAr ? 'الاسم' : 'Name'}</th>
-                  <th className={styles.th}>{isAr ? 'البريد الإلكتروني' : 'Email'}</th>
-                  <th className={styles.th}>{isAr ? 'الدور' : 'Role'}</th>
-                  <th className={styles.th}>{isAr ? 'تاريخ التسجيل' : 'Registered At'}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map(u => (
-                  <tr key={u.id} className={styles.tr}>
-                    <td className={styles.td}>{u.name}</td>
-                    <td className={styles.td}>{u.email}</td>
-                    <td style={{ padding: '1rem', color: u.role === 'admin' ? 'var(--primary)' : 'inherit', fontWeight: u.role === 'admin' ? 'bold' : 'normal' }}>{u.role}</td>
-                    <td className={styles.td}>
-                      <span dir="ltr" style={{ display: 'inline-block', unicodeBidi: 'embed', fontWeight: 600, color: '#444' }}>
-                        {formatDateDisplay(u.created_at)}
-                      </span>
-                    </td>
+            <div className={styles.tableWrapper}>
+              <table className={styles.table}>
+                <thead>
+                  <tr className={styles.tableHeader}>
+                    <th className={styles.th}>{isAr ? 'الاسم' : 'Name'}</th>
+                    <th className={styles.th}>{isAr ? 'البريد الإلكتروني' : 'Email'}</th>
+                    <th className={styles.th}>{isAr ? 'الدور' : 'Role'}</th>
+                    <th className={styles.th}>{isAr ? 'تاريخ التسجيل' : 'Registered At'}</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {users.map(u => (
+                    <tr key={u.id} className={styles.tr}>
+                      <td className={styles.td}>{u.name}</td>
+                      <td className={styles.td}>{u.email}</td>
+                      <td style={{ padding: '1rem', color: u.role === 'admin' ? 'var(--primary)' : 'inherit', fontWeight: u.role === 'admin' ? 'bold' : 'normal' }}>{u.role}</td>
+                      <td className={styles.td}>
+                        <span dir="ltr" style={{ display: 'inline-block', unicodeBidi: 'embed', fontWeight: 600, color: '#444' }}>
+                          {formatDateDisplay(u.created_at)}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         )}
       </div>

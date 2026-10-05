@@ -28,6 +28,11 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   font-family: var(--font-body);
   background-color: var(--bg-light);
@@ -40,6 +45,19 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--bg-dark);
   font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 3vw, 2rem);
 }
 
 html[dir="rtl"] body {
@@ -102,9 +120,15 @@ button {
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 1.5rem;
+  }
 }
 
 /* Card */
@@ -146,4 +170,17 @@ button {
 .form-input:focus {
   outline: none;
   border-color: var(--primary);
+}
+
+/* Responsive Table Wrapper */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Responsive Image */
+img {
+  max-width: 100%;
+  height: auto;
 }
