@@ -27,74 +27,140 @@ const BlogDetails = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const enrichContent = (data) => {
+      if (data.content && data.content.length > 400 && data.content.includes('<h2')) {
+        return data.content;
+      }
+
+      const pId = parseInt(data.id);
+      const title = data.title || '';
+      const baseDesc = data.content || '';
+
+      if (pId === 1 || title.toLowerCase().includes('burger')) {
+        return isAr ? `
+          <p style="font-size: 1.15rem; line-height: 1.8; color: #333; margin-bottom: 2rem; font-weight: 500;">
+            ${baseDesc || 'إعداد البرجر والبيتزا المثالية في المنزل فن يجمع بين المكونات الممتازة والتقنيات الاحترافية والشغف بابتكار تجربة تذوق لا تُنسى.'}
+          </p>
+
+          <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">ماذا تحتاج لتحضير البرجر المنزلي المثالي؟</h2>
+          <p style="margin-bottom: 1.5rem; line-height: 1.8;">سر البرجر اللذيذ يبدأ من قطعة اللحم ذات الجودة العالية مع نسبة دهون متوازنة تمنحها الطراوة والنكهة الغنية.</p>
+          <ol style="margin-bottom: 2rem; padding-right: 1.5rem; line-height: 1.9;">
+            <li style="margin-bottom: 0.75rem"><strong>لحم عالي الجودة:</strong> اختر لحماً طازجاً بنسبة دهن تبلغ حوالي 20% للحصول على برجر طري ومليء بالعصارة.</li>
+            <li style="margin-bottom: 0.75rem"><strong>التتبيل البسيط:</strong> رشة كريمة من الملح الخشن والفلفل الأسود المطحون طازجاً قبل الشواء مباشرة كفيلة بإبراز النكهة الطبيعية.</li>
+            <li style="margin-bottom: 0.75rem"><strong>تجنب الضغط الزائد:</strong> عند تشكيل القرص، تعامل معه بلطف لتجنب جعله مضغوطاً وقاسياً بعد النضج.</li>
+            <li style="margin-bottom: 0.75rem"><strong>حرارة طهي مرتفعة:</strong> الحرارة العالية ضرورية لتكوين طبقة خارجية مقرمشة تحبس العصارات بالداخل.</li>
+            <li style="margin-bottom: 0.75rem"><strong>إراحة اللحم:</strong> اترك البرجر يرتاح لمدة 3 دقائق قبل تقديمه ليتوزع السائل الداخلي بالتساوي.</li>
+          </ol>
+
+          <div style="background-color: #F4F5F0; border-right: 4px solid var(--primary-color, #AD343E); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
+            <p style="margin: 0; font-size: 1.1rem; color: #2C2F24; line-height: 1.7;">
+              "سر البيتزا والبرجر الناجح لا يكمن في كثرة الإضافات، بل في احترام المكونات الأساسية وتناغم الطعم بين الخبز واللحم والصلصة الخاصة."
+            </p>
+            <span style="display: block; margin-top: 0.5rem; font-weight: 600; color: #AD343E; font-size: 0.95rem;">— الشيف ماركو، كبير طهاة بيسترو بليس</span>
+          </div>
+
+          <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">ما هي المكونات التي تمنحه الطعم الفاخر؟</h2>
+          <p style="margin-bottom: 1.5rem; line-height: 1.8;">الخبز الطازج (البريوش المدهون بالزبدة والمحمص خفيفاً)، والجبن الذائب بجودة عالية مثل الشيدر المعتق، مع المخلل المقرمش وشرائح البصل المكرمل، هذه التفاصيل الصغيرة تصنع الفرق الكبير.</p>
+        ` : `
+          <p style="font-size: 1.15rem; line-height: 1.8; color: #333; margin-bottom: 2rem; font-weight: 500;">
+            ${baseDesc || 'Creating the perfect burger and pizza is an art, combining ingredients, techniques, and passion to craft a culinary masterpiece.'}
+          </p>
+
+          <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">What do you need to prepare a home-made burger?</h2>
+          <p style="margin-bottom: 1.5rem; line-height: 1.8;">Creating the perfect burger and pizza is an art, combining ingredients, techniques, and passion to craft a culinary masterpiece.</p>
+          <ol style="margin-bottom: 2rem; padding-left: 1.5rem; line-height: 1.9;">
+            <li style="margin-bottom: 0.75rem"><strong>Quality Meat:</strong> The heart of a perfect burger is top-notch beef. Opt for fresh, high-quality ground beef with a fat content of about 20% for the juiciest, most flavorful results.</li>
+            <li style="margin-bottom: 0.75rem"><strong>Seasoning:</strong> Keep it simple. A generous pinch of salt and black pepper just before cooking will enhance the beef's natural flavors without overpowering them.</li>
+            <li style="margin-bottom: 0.75rem"><strong>Don't Overwork the Meat:</strong> When forming your patties, be gentle. Overworking the meat can lead to dense, tough burgers.</li>
+            <li style="margin-bottom: 0.75rem"><strong>Cooking:</strong> High heat is crucial. Whether grilling or pan-searing, make sure your cooking surface is hot enough to form a nice crust on the patty, sealing in delicious juices.</li>
+            <li style="margin-bottom: 0.75rem"><strong>Resting:</strong> Allow your cooked burgers to rest for a few minutes before serving. This lets juices redistribute throughout the patty.</li>
+          </ol>
+
+          <div style="background-color: #F4F5F0; border-left: 4px solid var(--primary-color, #AD343E); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
+            <p style="margin: 0; font-size: 1.1rem; color: #2C2F24; line-height: 1.7;">
+              "The secret to a memorable burger lies not in complicated toppings, but in respecting the pure craft: high-grade beef, buttery brioche, and harmonized seasoning."
+            </p>
+            <span style="display: block; margin-top: 0.5rem; font-weight: 600; color: #AD343E; font-size: 0.95rem;">— Chef Marco, Executive Chef at Bistro Bliss</span>
+          </div>
+
+          <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">What are the right ingredients to make it delicious?</h2>
+          <p style="margin-bottom: 1.5rem; line-height: 1.8;">Toast the brioche buns with clarified butter, use aged cheddar that melts evenly, and craft a homemade aioli or tangy bistro sauce for that signature restaurant-quality finish.</p>
+        `;
+      }
+
+      // Default rich article generator for other articles
+      return isAr ? `
+        <p style="font-size: 1.15rem; line-height: 1.8; color: #333; margin-bottom: 2rem; font-weight: 500;">
+          ${baseDesc || 'فن الطهي يجمع بين الشغف واختيار أفضل المكونات والتقنيات المدروسة لابتكار أطباق استثنائية تأسر الحواس.'}
+        </p>
+
+        <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">أسرار النكهة واختيار المكونات الطازجة</h2>
+        <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+          يكمن سر نجاح أي وصفة متقنة في انتقاء المكونات بعناية فائقة. النكهات الأصلية تبدأ من المزرعة إلى المطبخ مباشرة، حيث تلعب جودة الخضروات واللحوم والتوابل الدور المحوري في رفع مستوى الطبق إلى تجربة استثنائية.
+        </p>
+
+        <ol style="margin-bottom: 2rem; padding-right: 1.5rem; line-height: 1.9;">
+          <li style="margin-bottom: 0.75rem"><strong>جودة المكونات الأساسية:</strong> احرص دائماً على استخدام المكونات الطازجة وغير المصنعة لضمان أفضل قوام وطعم غني.</li>
+          <li style="margin-bottom: 0.75rem"><strong>التوازن الدقيق للتوابل:</strong> التوابل ليست للتغطية على طعم المكون بل لإبراز حلاوته الطبيعية وتناغم نكهاته.</li>
+          <li style="margin-bottom: 0.75rem"><strong>التحكم في درجات الحرارة:</strong> الطهي بدرجات حرارة مضبوطة يحافظ على العصارة ويضمن نضجاً متساوياً وقرمشة مثالية.</li>
+          <li style="margin-bottom: 0.75rem"><strong>إراحة الطعام قبل التقديم:</strong> ترك الأطباق لترتاح بضع دقائق يساعد على توزيع العصارات الداخلية وإبراز الروائح الزكية.</li>
+        </ol>
+
+        <div style="background-color: #F4F5F0; border-right: 4px solid var(--primary-color, #AD343E); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
+          <p style="margin: 0; font-size: 1.1rem; color: #2C2F24; line-height: 1.7;">
+            "الطهي ليس مجرد اتباع وصفة، بل هو تجربة حسية كاملة تبدأ برائحة التوابل وتنتهي بابتسامة الرضا عند أول قضمة."
+          </p>
+          <span style="display: block; margin-top: 0.5rem; font-weight: 600; color: #AD343E; font-size: 0.95rem;">— كبير طهاة بيسترو بليس</span>
+        </div>
+
+        <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">خطوات التنفيذ والإتقان في المطبخ</h2>
+        <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+          ابدأ دائماً بتجهيز مساحة العمل وترتيب المكونات مقدماً (Mise en place). هذا يمنحك تركيزاً كاملاً ويمنع احتراق المكونات أو نسيان أي عنصر أساسي، مما يضمن خروج الطبق بأفضل صورة تليق بمائدتك.
+        </p>
+      ` : `
+        <p style="font-size: 1.15rem; line-height: 1.8; color: #333; margin-bottom: 2rem; font-weight: 500;">
+          ${baseDesc || 'Creating the perfect culinary experience is an art, combining premium ingredients, passion, and meticulous techniques.'}
+        </p>
+
+        <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">The Core Secrets & Choosing Fresh Ingredients</h2>
+        <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+          The difference between an ordinary dish and an unforgettable culinary masterpiece lies in the attention to foundational ingredients. Sourcing fresh, seasonal produce transforms everyday cooking into high gastronomy.
+        </p>
+
+        <ol style="margin-bottom: 2rem; padding-left: 1.5rem; line-height: 1.9;">
+          <li style="margin-bottom: 0.75rem"><strong>Premium Sourcing:</strong> Always seek farm-fresh, seasonal ingredients. Peak freshness delivers unparalleled natural sweetness and texture.</li>
+          <li style="margin-bottom: 0.75rem"><strong>Balanced Seasoning:</strong> Salt and spices should enhance rather than mask. Season in thoughtful layers throughout the cooking process.</li>
+          <li style="margin-bottom: 0.75rem"><strong>Heat Precision:</strong> Mastering pan heat and oven temperatures ensures an appetizing sear while locking in delicate moisture.</li>
+          <li style="margin-bottom: 0.75rem"><strong>The Resting Phase:</strong> Allowing your creation to rest before plating lets internal juices settle and redistribute for optimal tenderness.</li>
+        </ol>
+
+        <div style="background-color: #F4F5F0; border-left: 4px solid var(--primary-color, #AD343E); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; font-style: italic;">
+          <p style="margin: 0; font-size: 1.1rem; color: #2C2F24; line-height: 1.7;">
+            "Cooking is an observation of senses; the sound of sizzling, the aroma of spices, and the touch of fresh ingredients coming together in harmony."
+          </p>
+          <span style="display: block; margin-top: 0.5rem; font-weight: 600; color: #AD343E; font-size: 0.95rem;">— Head Chef, Bistro Bliss</span>
+        </div>
+
+        <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">Professional Techniques & Step-by-Step Execution</h2>
+        <p style="margin-bottom: 1.5rem; line-height: 1.8;">
+          Always implement a proper "mise en place" before turning on the stove. Having all components chopped, measured, and ready eliminates rush, prevents overcooking, and allows you to cook with complete culinary confidence.
+        </p>
+      `;
+    };
+
     const fetchPost = async () => {
       try {
         const response = await axios.get(`/posts/${id}`);
-        setPost(response.data);
+        setPost({
+          ...response.data,
+          content: enrichContent(response.data)
+        });
       } catch {
-        const dummy = dummyArticles.find(a => a.id === parseInt(id));
-        if (dummy) {
-          let richContent = '';
-          
-          if (dummy.id === 1) {
-            richContent = `
-              <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">What do you need to prepare a home-made burger?</h2>
-              <p style="margin-bottom: 1.5rem;">Creating the perfect burger and pizza is an art, combining ingredients, techniques, and passion to craft a culinary masterpiece.</p>
-              <ol style="margin-bottom: 2rem; padding-left: 1.5rem; line-height: 1.8;">
-                <li style="margin-bottom: 0.5rem"><strong>Quality Meat:</strong> The heart of a perfect burger is top-notch beef. Opt for fresh, high-quality ground beef with a fat content of about 20% for the juiciest, most flavorful results.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Seasoning:</strong> Keep it simple. A generous pinch of salt and black pepper just before cooking will enhance the beef's natural flavors without overpowering them.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Don't Overwork the Meat:</strong> When forming your patties, be gentle. Overworking the meat can lead to dense, tough burgers. You want a patty that's firm enough to hold together, but not compressed.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Cooking:</strong> High heat is crucial. Whether you're grilling or pan-searing, make sure your cooking surface is hot enough to form a nice crust on the patty, sealing in those delicious juices.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Resting:</strong> Allow your cooked burgers to rest for a few minutes before serving. This lets the juices redistribute throughout the patty, ensuring a moist and flavorful bite.</li>
-              </ol>
-
-              <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 1rem;">What are the right ingredients to make it delicious?</h2>
-              <p style="margin-bottom: 1.5rem;">Creating the perfect burger and pizza is an art, combining ingredients, techniques, and passion to craft a culinary masterpiece.</p>
-              <ol style="margin-bottom: 2rem; padding-left: 1.5rem; line-height: 1.8;">
-                <li style="margin-bottom: 0.5rem"><strong>Quality Meat:</strong> The heart of a perfect burger is top-notch beef. Opt for fresh, high-quality ground beef with a fat content of about 20% for the juiciest, most flavorful results.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Seasoning:</strong> Keep it simple. A generous pinch of salt and black pepper just before cooking will enhance the beef's natural flavors without overpowering them.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Don't Overwork the Meat:</strong> When forming your patties, be gentle. Overworking the meat can lead to dense, tough burgers.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Cooking:</strong> High heat is crucial. Whether you're grilling or pan-searing, make sure your cooking surface is hot.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Resting:</strong> Allow your cooked burgers to rest for a few minutes before serving. This lets the juices redistribute.</li>
-              </ol>
-
-              <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=compress&cs=tinysrgb&w=800&h=400&dpr=1" alt="Fries and burger" style="width: 100%; height: auto; border-radius: 12px; margin-top: 2rem; margin-bottom: 2.5rem; object-fit: cover;" />
-
-              <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 1rem; margin-bottom: 1rem;">What are the right ingredients to make it delicious?</h2>
-              <p style="margin-bottom: 1.5rem;">Proin faucibus nec mauris a sodales, sed elementum mi tincidunt. Sed eget velit est. In tempor vehicula ullamcorper. Fusce varius aliquam egestas. Cras non nisl mauris. In ligula velit, vulputate eu consectetur amet, luctus ipsum dolor sit amet, consectetur adipiscing elit. Sed eget velit est. In tempor vehicula ullamcorper. Fusce varius aliquam egestas. Cras non nisl mauris.</p>
-            `;
-          } else if (dummy.id === 2) {
-            richContent = `
-              <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">The art of baking French Macarons</h2>
-              <p style="margin-bottom: 1.5rem;">Baking is a science and an art, combining precise measurements, techniques, and passion to craft culinary masterpieces.</p>
-              <ol style="margin-bottom: 2rem; padding-left: 1.5rem; line-height: 1.8;">
-                <li style="margin-bottom: 0.5rem"><strong>Sift the dry ingredients:</strong> Almond flour and powdered sugar must be sifted together multiple times for a smooth shell.</li>
-                <li style="margin-bottom: 0.5rem"><strong>The Meringue:</strong> Whip the egg whites until stiff peaks form. Be careful not to over-whip.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Macaronage:</strong> This is the crucial folding process. Fold until the batter flows off the spatula like lava.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Resting:</strong> Let the piped macarons sit at room temperature until a skin forms. This ensures they develop their signature "feet".</li>
-              </ol>
-            `;
-          } else {
-            richContent = `
-              <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2rem; margin-bottom: 1rem;">${dummy.title}</h2>
-              <p style="margin-bottom: 1.5rem;">Cooking is an art that combines passion, right ingredients, and perfect timing. Whether you are baking or cooking a main dish, the secret lies in the details.</p>
-              <ol style="margin-bottom: 2rem; padding-left: 1.5rem; line-height: 1.8;">
-                <li style="margin-bottom: 0.5rem"><strong>High Quality Ingredients:</strong> Always start with the freshest ingredients you can find. It makes a massive difference in the final taste.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Proper Seasoning:</strong> Don't be afraid to use salt and spices to elevate the flavors of your dish.</li>
-                <li style="margin-bottom: 0.5rem"><strong>Patience:</strong> Great food takes time. Let it cook properly and rest before serving.</li>
-              </ol>
-
-              <h2 style="font-family: var(--font-heading); color: #2C2F24; font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 1rem;">Step by Step Instructions</h2>
-              <p style="margin-bottom: 1.5rem;">Follow these simple steps to ensure your dish comes out perfectly every single time. Make sure you read through the whole recipe before starting.</p>
-              <p style="margin-bottom: 1.5rem;">Proin faucibus nec mauris a sodales, sed elementum mi tincidunt. Sed eget velit est. In tempor vehicula ullamcorper. Fusce varius aliquam egestas. Cras non nisl mauris. In ligula velit, vulputate eu consectetur amet, luctus ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            `;
-          }
-          
-          setPost({ 
-            ...dummy, 
-            content: richContent
-          });
-        }
+        const dummy = dummyArticles.find(a => a.id === parseInt(id)) || dummyArticles[0];
+        setPost({ 
+          ...dummy, 
+          content: enrichContent(dummy)
+        });
       } finally {
         setLoading(false);
       }
@@ -115,7 +181,7 @@ const BlogDetails = () => {
 
     fetchPost();
     fetchRelated();
-  }, [id]);
+  }, [id, isAr]);
 
   if (loading) return <div style={{ padding: '6rem', textAlign: 'center' }}>Loading post...</div>;
   if (!post) return <div style={{ padding: '6rem', textAlign: 'center' }}>Post not found</div>;
@@ -125,9 +191,23 @@ const BlogDetails = () => {
       
       <div className="container" style={{ paddingTop: 'clamp(3rem, 6vw, 5rem)', paddingBottom: '3rem', maxWidth: '850px' }}>
         {/* Title */}
-        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontFamily: 'var(--font-heading)', color: '#2C2F24', textAlign: 'center', lineHeight: 1.25, marginBottom: '2rem' }}>
+        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)', fontFamily: 'var(--font-heading)', color: '#2C2F24', textAlign: 'center', lineHeight: 1.25, marginBottom: '1.5rem' }}>
           {post.title}
         </h1>
+
+        {/* Author & Meta Bar */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.25rem', flexWrap: 'wrap', marginBottom: '2.5rem', color: '#737865', fontSize: '0.95rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=100&h=100&fit=crop" alt="Chef" style={{ width: '36px', height: '36px', borderRadius: '50%', objectFit: 'cover' }} />
+            <span style={{ fontWeight: 600, color: '#2C2F24' }}>{isAr ? 'الشيف ماركو أوليفير' : 'Chef Marco Oliver'}</span>
+          </div>
+          <span>•</span>
+          <span>{post.created_at ? new Date(post.created_at).toLocaleDateString(isAr ? 'ar-EG' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (post.date || (isAr ? 'يناير 2024' : 'January 2024'))}</span>
+          <span>•</span>
+          <span>{isAr ? '٥ دقائق قراءة' : '5 min read'}</span>
+          <span>•</span>
+          <span style={{ backgroundColor: '#EEF0E5', color: '#414536', padding: '0.2rem 0.65rem', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600 }}>{isAr ? 'دليل الطهي' : 'Culinary Guide'}</span>
+        </div>
 
         {/* Main Image */}
         <div style={{ width: '100%', aspectRatio: '16/9', maxHeight: '480px', marginBottom: '2.5rem', overflow: 'hidden', borderRadius: 'var(--radius-md)' }}>
