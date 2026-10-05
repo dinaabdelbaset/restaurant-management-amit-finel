@@ -67,7 +67,7 @@ const Profile = () => {
                 setIsEditing(false);
                 setUpdateMsg(isAr ? 'تم تحديث الملف الشخصي بنجاح!' : 'Profile updated successfully!');
                 setTimeout(() => setUpdateMsg(''), 3000);
-              } catch (err) {
+              } catch {
                 setUpdateMsg(isAr ? 'فشل تحديث البيانات.' : 'Failed to update profile.');
               }
             }} style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

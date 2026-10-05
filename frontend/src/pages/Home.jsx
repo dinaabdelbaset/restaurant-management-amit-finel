@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, Clock, MapPin, CheckCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, CheckCircle } from 'lucide-react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 import styles from './Home.module.css';

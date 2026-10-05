@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
-import styles from './Page.module.css';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -23,7 +22,7 @@ const Contact = () => {
       await axios.post('/contact', formData);
       setStatus('Thank you for contacting us! We will get back to you soon.');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (err) {
+    } catch {
       setStatus('Failed to send message. Please try again.');
     }
   };

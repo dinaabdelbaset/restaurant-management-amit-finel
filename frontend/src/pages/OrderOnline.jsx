@@ -57,7 +57,7 @@ const OrderOnline = () => {
       localStorage.removeItem('cart');
       window.dispatchEvent(new Event('cartUpdated'));
       setTimeout(() => navigate('/profile'), 2000);
-    } catch (err) {
+    } catch {
       setMsg(isAr ? 'تعذر إتمام الطلب، يرجى مراجعة البيانات.' : 'Failed to place order. Please check your details.');
     } finally {
       setIsProcessing(false);

@@ -19,7 +19,7 @@ const Login = () => {
       await login(email, password);
       toast.success(isAr ? 'تم تسجيل الدخول بنجاح!' : 'Logged in successfully!');
       navigate('/profile');
-    } catch (err) {
+    } catch {
       const errMsg = isAr ? 'بيانات الدخول غير صحيحة، يرجى المحاولة مرة أخرى.' : 'Invalid credentials. Please try again.';
       toast.error(errMsg);
       setError(errMsg);

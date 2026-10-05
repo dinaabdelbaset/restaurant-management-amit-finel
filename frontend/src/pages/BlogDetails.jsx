@@ -20,7 +20,7 @@ const dummyArticles = [
 
 const BlogDetails = () => {
   const { id } = useParams();
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const isAr = language === 'ar';
   const [post, setPost] = useState(null);
   const [relatedArticles, setRelatedArticles] = useState([]);
@@ -31,7 +31,7 @@ const BlogDetails = () => {
       try {
         const response = await axios.get(`/posts/${id}`);
         setPost(response.data);
-      } catch (err) {
+      } catch {
         const dummy = dummyArticles.find(a => a.id === parseInt(id));
         if (dummy) {
           let richContent = '';

@@ -30,7 +30,7 @@ const BookTable = () => {
       });
       setMsg(t('form_book_now') + ' - Success! Waiting for confirmation.');
       setDate(''); setTime(''); setGuests('1 Person');
-    } catch (err) {
+    } catch {
       setMsg('Error booking table. Please try again.');
     }
   };

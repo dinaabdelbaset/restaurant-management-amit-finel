@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Page.module.css';
+
 import { useLanguage } from '../context/LanguageContext';
 import { Phone, Mail, MapPin, Play, Utensils, ClipboardList, Clock } from 'lucide-react';
 
