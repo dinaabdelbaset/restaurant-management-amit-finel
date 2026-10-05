@@ -1,10 +1,10 @@
 /* ==========================================================================
    MOBILE-FIRST NAVBAR STYLES
-   Base styles apply to Mobile (320px+)
-   Scale up with @media (min-width: 768px) and @media (min-width: 1150px)
+   Base styles apply to Mobile (< 992px)
+   Desktop styles apply to Desktop (>= 992px)
    ========================================================================== */
 
-/* 1. Base (Mobile 320px+) */
+/* 1. Base Mobile (< 992px) */
 .header {
   width: 100%;
   font-family: var(--font-body);
@@ -20,10 +20,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.65rem 0.85rem;
+  padding: 0.65rem 1rem;
   max-width: 1320px;
   margin: 0 auto;
-  gap: 0.4rem;
+  gap: 0.75rem;
   flex-wrap: nowrap;
 }
 
@@ -37,7 +37,7 @@
 }
 
 .logoText {
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-style: italic;
   font-family: Georgia, serif;
   font-weight: bold;
@@ -47,7 +47,7 @@
   white-space: nowrap;
 }
 
-/* On mobile by default, desktop links and buttons are strictly hidden */
+/* Strictly hide desktop-only items on mobile */
 .desktopNav {
   display: none !important;
 }
@@ -60,10 +60,11 @@
   display: none !important;
 }
 
+/* Actions area */
 .actionsArea {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   flex-shrink: 0;
 }
 
@@ -105,8 +106,8 @@
 .langBtn {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.3rem 0.55rem;
+  gap: 0.3rem;
+  padding: 0.35rem 0.65rem;
   border-radius: 50px;
   border: 1.5px solid #2C2F24;
   background-color: #fff;
@@ -119,30 +120,30 @@
 }
 
 .langDesktopText {
-  display: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .langMobileText {
-  display: inline;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #AD343E;
+  display: none;
 }
 
+/* Hamburger button (Visible on Mobile) */
 .hamburgerBtn {
-  display: flex;
+  display: flex !important;
   background-color: #F8F9F5;
   border: 1px solid #E2E2DE;
   color: #2C2F24;
   cursor: pointer;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   transition: all 0.2s ease;
   flex-shrink: 0;
-  margin-inline-start: 0.25rem;
+  margin-inline-start: 0.2rem;
 }
 
 .hamburgerBtn:hover {
@@ -259,58 +260,57 @@
   }
 }
 
-/* ==========================================================================
-   2. Medium Screens & Tablets (@media min-width: 768px)
-   ========================================================================== */
-@media (min-width: 768px) {
-  .navContainer {
-    padding: 0.75rem 1.25rem;
-    gap: 0.75rem;
-  }
-
-  .logoText {
-    font-size: 1.55rem;
-  }
-
+/* Compact rules for very narrow phones (< 420px) */
+@media (max-width: 420px) {
   .langDesktopText {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-
-  .langMobileText {
     display: none;
   }
 
-  .langBtn {
-    padding: 0.35rem 0.65rem;
-    gap: 0.35rem;
+  .langMobileText {
+    display: inline;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #AD343E;
   }
 
-  .actionsArea {
-    gap: 0.65rem;
+  .langBtn {
+    padding: 0.3rem 0.5rem;
+  }
+
+  .logoText {
+    font-size: 1.15rem;
+  }
+
+  .navContainer {
+    padding: 0.6rem 0.75rem;
   }
 }
 
 /* ==========================================================================
-   3. Large Screens & Desktops (@media min-width: 1150px)
+   2. Desktop (>= 992px)
    ========================================================================== */
-@media (min-width: 1150px) {
+@media (min-width: 992px) {
+  .navContainer {
+    padding: 0.85rem 1.5rem;
+    gap: 1rem;
+  }
+
   .logoText {
     font-size: 1.75rem;
   }
 
+  /* Hide hamburger and drawer on desktop */
   .hamburgerBtn {
-    display: none;
+    display: none !important;
   }
 
   .mobileDrawer {
     display: none !important;
   }
 
-  /* Show desktop navigation */
+  /* Show desktop navigation links */
   .desktopNav {
-    display: flex;
+    display: flex !important;
     gap: 1.25rem;
     align-items: center;
     font-size: 0.95rem;
@@ -348,7 +348,7 @@
 
   /* Show desktop user area */
   .desktopUserArea {
-    display: flex;
+    display: flex !important;
     align-items: center;
   }
 
@@ -367,6 +367,7 @@
     white-space: nowrap;
   }
 
+  /* Show desktop Book A Table CTA */
   .desktopBookBtn {
     display: inline-flex !important;
     padding: 0.5rem 1.25rem;
@@ -378,5 +379,9 @@
     font-size: 0.9rem;
     white-space: nowrap;
     flex-shrink: 0;
+  }
+
+  .actionsArea {
+    gap: 0.75rem;
   }
 }
