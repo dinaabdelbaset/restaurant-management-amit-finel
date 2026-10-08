@@ -18,19 +18,7 @@ const Home = () => {
   }, []);
   return (
     <div>
-      {/* Top Bar - Very Top Header */}
-      <div className={styles.topBar}>
-        <div className={`container ${styles.topBarContainer}`}>
-          <div className={styles.topBarInfo}>
-            <span className={styles.topBarItem}><Phone size={14} /> (414) 857 - 0107</span>
-            <span className={styles.topBarItem}><Mail size={14} /> yummy@bistrobliss.com</span>
-          </div>
-          <div className={styles.topBarSocial}>
-             {/* Social links */}
-             <span>FB</span><span>TW</span><span>IG</span>
-          </div>
-        </div>
-      </div>
+      {/* Hero Section */}
 
       {/* Hero Section */}
       <section className={styles.heroSection}>
