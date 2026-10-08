@@ -75,12 +75,24 @@
 }
 
 .removeBtn {
-  color: #c62828;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #dc2626;
   background: none;
   border: none;
   cursor: pointer;
   padding: 0.25rem 0.5rem;
-  font-size: 0.85rem;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.removeBtn:hover {
+  background-color: #fee2e2;
+  color: #991b1b;
 }
 
 /* On mobile by default, checkout card sits directly below items */

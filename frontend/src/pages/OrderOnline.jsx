@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useNavigate, Link } from 'react-router-dom';
+import { Trash2 } from 'lucide-react';
 import styles from './OrderOnline.module.css';
 
 const OrderOnline = () => {
@@ -110,7 +111,15 @@ const OrderOnline = () => {
                       <div>
                         <div style={{ fontWeight: 500 }}>{item.name}</div>
                         <div style={{ fontSize: '0.875rem', color: '#666' }}>{item.quantity} x ${item.price}</div>
-                        <button onClick={() => removeItem(item.menu_item_id)} style={{ color: 'red', fontSize: '0.75rem', marginTop: '0.5rem', cursor: 'pointer' }}>{isAr ? 'حذف من السلة' : 'Remove'}</button>
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.menu_item_id)}
+                          className={styles.removeBtn}
+                          title={isAr ? 'حذف من السلة' : 'Remove item'}
+                        >
+                          <Trash2 size={14} />
+                          <span>{isAr ? 'حذف من السلة' : 'Remove'}</span>
+                        </button>
                       </div>
                       <div style={{ fontWeight: 600 }}>${(item.quantity * item.price).toFixed(2)}</div>
                     </li>

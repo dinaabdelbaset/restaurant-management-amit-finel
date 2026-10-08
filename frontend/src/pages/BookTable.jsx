@@ -37,18 +37,13 @@ const BookTable = () => {
 
   return (
     <div className={styles.pageWrapper}>
-      {/* Header Section */}
+      {/* Header & Form Section */}
       <div className={`container ${styles.headerSection}`}>
         <h1 className={styles.heading}>{t('book_heading')}</h1>
         <p className={styles.subheading}>
           {t('book_subheading')}
         </p>
-      </div>
 
-      {/* Map Background Section */}
-      <div className={styles.mapSection}>
-        <div className={styles.mapBackground}></div>
-        
         {/* Form Card Overlay */}
         <div className={styles.formCardOverlay}>
           {msg && (
@@ -134,9 +129,13 @@ const BookTable = () => {
           </form>
         </div>
       </div>
+
+      {/* Map Background Section */}
+      <div className={styles.mapSection}>
+        <div className={styles.mapBackground}></div>
+      </div>
     </div>
   );
 };
 
 export default BookTable;
-

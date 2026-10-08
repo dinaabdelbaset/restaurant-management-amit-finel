@@ -1,65 +1,58 @@
 /* ==========================================================================
    MOBILE-FIRST BOOK A TABLE STYLES
-   Base styles apply to Mobile (320px+)
-   Scale up with @media (min-width: 768px) and @media (min-width: 1024px)
    ========================================================================== */
 
 /* 1. Base (Mobile 320px+) */
 .pageWrapper {
   background-color: #ffffff;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
+/* Header Section */
 .headerSection {
-  padding-top: 3rem;
-  padding-bottom: 2rem;
+  padding-top: 2.25rem;
+  padding-bottom: 0;
   text-align: center;
   position: relative;
-  z-index: 1;
+  z-index: 10;
 }
 
 .heading {
-  font-size: clamp(2.2rem, 5vw, 4.2rem);
-  font-family: var(--font-heading);
-  margin-bottom: 1rem;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-family: var(--font-heading, 'Playfair Display', serif);
+  margin-bottom: 0.75rem;
   color: #2C2F24;
+  line-height: 1.15;
 }
 
 .subheading {
-  color: var(--text-gray);
-  max-width: 550px;
-  margin: 0 auto;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #495460;
+  max-width: 520px;
+  margin: 0 auto 2.25rem auto;
+  font-size: clamp(0.92rem, 1.8vw, 1.05rem);
   line-height: 1.6;
 }
 
-.mapSection {
-  position: relative;
-  width: 100%;
-}
-
-.mapBackground {
-  width: 100%;
-  height: 220px;
-  background-image: url("/map-bg.png");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.9;
-}
-
-/* On mobile by default, card sits comfortably stacked with no negative absolute offset */
+/* Form Card */
 .formCardOverlay {
   position: relative;
-  width: 92%;
-  max-width: 500px;
-  margin: -80px auto 3rem auto;
-  background-color: white;
-  border-radius: 16px;
+  z-index: 20;
+  width: 94%;
+  max-width: 480px;
+  margin: 0 auto -100px auto; /* Overlaps 100px into map on mobile */
+  background-color: #ffffff;
+  border-radius: 18px;
   padding: 1.75rem 1.25rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  z-index: 10;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* In RTL (Arabic), align text right */
+:global([dir="rtl"]) .formCardOverlay,
+:global(.rtl) .formCardOverlay {
+  text-align: right;
 }
 
 .formGrid {
@@ -81,35 +74,67 @@
 .formLabel {
   display: block;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
   color: #2C2F24;
   font-size: 0.9rem;
 }
 
 .roundedInput {
   width: 100%;
-  padding: 0.9rem 1.25rem;
+  height: 48px;
+  padding: 0 1.25rem;
   border-radius: 50px;
   border: 1px solid #EAEAEA;
   outline: none;
-  color: #444;
+  color: #333;
   font-size: 0.92rem;
-  background-color: white;
-  transition: border-color 0.2s;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
   box-sizing: border-box;
 }
 
 .roundedInput:focus {
-  border-color: var(--primary);
+  border-color: #AD343E;
+  box-shadow: 0 0 0 3px rgba(173, 52, 62, 0.1);
 }
 
 .submitBtn {
-  padding: 1rem;
+  height: 50px;
+  padding: 0 1.5rem;
   border-radius: 50px;
+  background-color: #AD343E;
+  color: #ffffff;
   font-size: 1rem;
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
   width: 100%;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s, transform 0.15s;
+}
+
+.submitBtn:hover {
+  background-color: #8E2B33;
+  transform: translateY(-1px);
+}
+
+/* Map Section */
+.mapSection {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  background-image: url("/map-bg.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.mapBackground {
+  display: none;
 }
 
 /* ==========================================================================
@@ -117,39 +142,36 @@
    ========================================================================== */
 @media (min-width: 768px) {
   .headerSection {
-    padding-top: 4.5rem;
-    padding-bottom: 10rem;
+    padding-top: 3.25rem;
   }
 
-  .mapBackground {
-    height: 420px;
+  .subheading {
+    margin-bottom: 2.5rem;
   }
 
-  /* Switch to overlay layout on tablet */
   .formCardOverlay {
-    position: absolute;
-    top: -160px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 88%;
-    max-width: 720px;
-    margin: 0;
-    padding: 2.75rem 2.25rem;
+    max-width: 620px;
+    margin: 0 auto -200px auto;
+    padding: 2.25rem 2rem;
     border-radius: 20px;
+  }
+
+  .formGrid {
+    gap: 1.35rem;
   }
 
   .formRow {
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 1.25rem;
+    gap: 1.35rem;
   }
 
   .formCol {
-    flex: 1 1 260px;
+    flex: 1 1 240px;
   }
 
-  .roundedInput {
-    padding: 1rem 1.35rem;
+  .mapSection {
+    height: 440px;
   }
 }
 
@@ -158,28 +180,44 @@
    ========================================================================== */
 @media (min-width: 1024px) {
   .headerSection {
-    padding-top: 5rem;
-    padding-bottom: 14rem;
+    padding-top: 4rem;
   }
 
-  .mapBackground {
-    height: 520px;
+  .heading {
+    margin-bottom: 0.85rem;
+  }
+
+  .subheading {
+    margin-bottom: 3rem;
   }
 
   .formCardOverlay {
-    top: -220px;
-    max-width: 760px;
-    padding: 3.5rem 3rem;
+    max-width: 660px;
+    margin: 0 auto -270px auto;
+    padding: 2.75rem 2.5rem;
     border-radius: 24px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+  }
+
+  .formGrid {
+    gap: 1.45rem;
+  }
+
+  .formRow {
+    gap: 1.45rem;
   }
 
   .roundedInput {
-    padding: 1.15rem 1.45rem;
+    height: 50px;
   }
 
   .submitBtn {
-    padding: 1.15rem;
+    height: 52px;
     font-size: 1.05rem;
+    margin-top: 0.5rem;
+  }
+
+  .mapSection {
+    height: 520px;
   }
 }

@@ -14,6 +14,10 @@ const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const updateCartCount = () => {
+    if (!user && !localStorage.getItem('token')) {
+      setCartCount(0);
+      return;
+    }
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     setCartCount(cart.reduce((acc, item) => acc + item.quantity, 0));
   };
@@ -22,7 +26,7 @@ const Navbar = () => {
     updateCartCount();
     window.addEventListener('cartUpdated', updateCartCount);
     return () => window.removeEventListener('cartUpdated', updateCartCount);
-  }, []);
+  }, [user]);
 
   // Close mobile menu whenever path changes
   useEffect(() => {
