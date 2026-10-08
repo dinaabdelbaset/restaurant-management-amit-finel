@@ -27,6 +27,8 @@ export const AuthProvider = ({ children }) => {
                 } catch (error) {
                     console.error("Auth check failed:", error);
                     localStorage.removeItem('token');
+                    localStorage.removeItem('cart');
+                    window.dispatchEvent(new Event('cartUpdated'));
                 }
             }
             setLoading(false);
@@ -38,6 +40,7 @@ export const AuthProvider = ({ children }) => {
         const response = await axios.post('/login', { email, password });
         localStorage.setItem('token', response.data.access_token);
         setUser(response.data.user);
+        window.dispatchEvent(new Event('cartUpdated'));
         return response.data;
     };
 
@@ -45,15 +48,18 @@ export const AuthProvider = ({ children }) => {
         const response = await axios.post('/register', { name, email, password, phone });
         localStorage.setItem('token', response.data.access_token);
         setUser(response.data.user);
+        window.dispatchEvent(new Event('cartUpdated'));
         return response.data;
     };
 
     const logout = async () => {
         try {
             await axios.post('/logout');
-        } catch { }
+        } catch {}
         localStorage.removeItem('token');
+        localStorage.removeItem('cart');
         setUser(null);
+        window.dispatchEvent(new Event('cartUpdated'));
     };
 
     return (
