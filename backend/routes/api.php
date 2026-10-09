@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Admin routes
     Route::middleware('can:admin')->group(function () {
         Route::post('/menu', [MenuController::class, 'store']);
-        Route::put('/menu/{id}', [MenuController::class, 'update']);
+        Route::match(['put', 'post'], '/menu/{id}', [MenuController::class, 'update']);
         Route::delete('/menu/{id}', [MenuController::class, 'destroy']);
         
         Route::put('/bookings/{id}/status', [BookingController::class, 'updateStatus']);
@@ -40,7 +40,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/admin/users', [AuthController::class, 'users']);
         
         Route::post('/posts', [PostController::class, 'store']);
-        Route::put('/posts/{id}', [PostController::class, 'update']);
+        Route::match(['put', 'post'], '/posts/{id}', [PostController::class, 'update']);
         Route::delete('/posts/{id}', [PostController::class, 'destroy']);
         
         Route::get('/contact', [ContactMessageController::class, 'index']);

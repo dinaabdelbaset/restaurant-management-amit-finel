@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             DummyMenuSeeder::class,
             DummyPostSeeder::class,
+            DummyBookingSeeder::class,
         ]);
     }
 }

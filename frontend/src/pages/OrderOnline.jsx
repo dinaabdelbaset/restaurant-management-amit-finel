@@ -94,6 +94,60 @@ const OrderOnline = () => {
                   <option value="Card">{t('order_card')}</option>
                 </select>
               </div>
+
+              {paymentMethod === 'Card' && (
+                <div style={{ backgroundColor: '#F8F9FA', border: '1px solid #E2E8F0', borderRadius: '12px', padding: '1.25rem', marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#475569' }}>
+                      {isAr ? '💳 بيانات البطاقة البنكية' : '💳 Credit / Debit Card Details'}
+                    </span>
+                    <span style={{ fontSize: '0.75rem', color: '#16a34a', fontWeight: 'bold', backgroundColor: '#DCFCE7', padding: '0.2rem 0.5rem', borderRadius: '4px' }}>
+                      {isAr ? 'دفع آمن 256-bit' : 'Secure 256-bit SSL'}
+                    </span>
+                  </div>
+
+                  <div className="form-group" style={{ margin: 0 }}>
+                    <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 500, marginBottom: '0.25rem', color: '#64748B' }}>
+                      {isAr ? 'رقم البطاقة' : 'Card Number'}
+                    </label>
+                    <input 
+                      type="text" 
+                      className="form-input" 
+                      placeholder="4532 •••• •••• 8890" 
+                      defaultValue="4532 8901 2345 6789"
+                      required={paymentMethod === 'Card'} 
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '0.75rem' }}>
+                    <div style={{ flex: 1 }}>
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 500, marginBottom: '0.25rem', color: '#64748B' }}>
+                        {isAr ? 'تاريخ الانتهاء' : 'Expiry Date'}
+                      </label>
+                      <input 
+                        type="text" 
+                        className="form-input" 
+                        placeholder="MM/YY" 
+                        defaultValue="08/28" 
+                        required={paymentMethod === 'Card'} 
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 500, marginBottom: '0.25rem', color: '#64748B' }}>
+                        CVV
+                      </label>
+                      <input 
+                        type="password" 
+                        maxLength="4" 
+                        className="form-input" 
+                        placeholder="•••" 
+                        defaultValue="842" 
+                        required={paymentMethod === 'Card'} 
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </form>
           </div>
         </div>

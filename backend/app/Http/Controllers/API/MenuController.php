@@ -46,15 +46,17 @@ class MenuController extends Controller
             'image' => 'nullable'
         ]);
 
-        $data = $request->all();
+        $data = $request->only(['name', 'description', 'price', 'category']);
 
         if ($request->hasFile('image')) {
-            if ($item->image) {
+            if ($item->image && str_starts_with($item->image, '/storage/')) {
                 $oldPath = str_replace('/storage/', '', $item->image);
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
             }
             $path = $request->file('image')->store('menu', 'public');
             $data['image'] = '/storage/' . $path;
+        } elseif ($request->filled('image') && is_string($request->image)) {
+            $data['image'] = $request->image;
         }
 
         $item->update($data);
@@ -64,7 +66,7 @@ class MenuController extends Controller
     public function destroy($id)
     {
         $item = MenuItem::findOrFail($id);
-        if ($item->image) {
+        if ($item->image && str_starts_with($item->image, '/storage/')) {
             $oldPath = str_replace('/storage/', '', $item->image);
             \Illuminate\Support\Facades\Storage::disk('public')->delete($oldPath);
         }

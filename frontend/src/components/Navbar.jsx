@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { User, LogOut, Menu, X, ShoppingBag, Phone, Mail } from 'lucide-react';
+import { User, LogOut, Menu, X, ShoppingBag, Phone, Mail, Bell } from 'lucide-react';
+import axios from 'axios';
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
@@ -12,6 +13,9 @@ const Navbar = () => {
   const location = useLocation();
   const [cartCount, setCartCount] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifDropdown, setShowNotifDropdown] = useState(false);
+  const isAr = language === 'ar';
 
   const updateCartCount = () => {
     if (!user && !localStorage.getItem('token')) {
@@ -31,7 +35,52 @@ const Navbar = () => {
   // Close mobile menu whenever path changes
   useEffect(() => {
     setMobileMenuOpen(false);
+    setShowNotifDropdown(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!user) {
+      setNotifications([]);
+      return;
+    }
+    const fetchNotifications = async () => {
+      try {
+        const [bRes, oRes] = await Promise.all([
+          axios.get('/bookings'),
+          axios.get('/orders')
+        ]);
+        const list = [];
+        (bRes.data || []).forEach(b => {
+          if (b.status === 'Accepted' || b.status === 'Rejected') {
+            list.push({
+              id: `b-${b.id}`,
+              type: 'booking',
+              text: isAr 
+                ? `حجزك (${b.booking_date} ${b.booking_time}): تم ${b.status === 'Accepted' ? 'قبوله 🎉' : 'رفضه ✖'}` 
+                : `Booking (${b.booking_date} ${b.booking_time}): ${b.status} ${b.status === 'Accepted' ? '🎉' : '✖'}`,
+              status: b.status
+            });
+          }
+        });
+        (oRes.data || []).forEach(o => {
+          if (o.status !== 'Pending') {
+            list.push({
+              id: `o-${o.id}`,
+              type: 'order',
+              text: isAr 
+                ? `طلبك #${o.id}: أصبح ${o.status}` 
+                : `Order #${o.id}: Status is now ${o.status}`,
+              status: o.status
+            });
+          }
+        });
+        setNotifications(list);
+      } catch {}
+    };
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 15000);
+    return () => clearInterval(interval);
+  }, [user, isAr]);
 
   const handleLogout = async () => {
     await logout();
@@ -121,6 +170,76 @@ const Navbar = () => {
               </span>
             )}
           </Link>
+
+          {/* Notifications Bell */}
+          {user && (
+            <div style={{ position: 'relative' }}>
+              <button 
+                onClick={() => setShowNotifDropdown(!showNotifDropdown)} 
+                className={styles.cartIconBtn} 
+                title={isAr ? 'الإشعارات' : 'Notifications'}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+              >
+                <Bell size={21} />
+                {notifications.length > 0 && (
+                  <span className={styles.cartBadge} style={{ backgroundColor: '#AD343E' }}>
+                    {notifications.length}
+                  </span>
+                )}
+              </button>
+
+              {showNotifDropdown && (
+                <div style={{
+                  position: 'absolute',
+                  top: '130%',
+                  right: isAr ? 'auto' : 0,
+                  left: isAr ? 0 : 'auto',
+                  width: '290px',
+                  backgroundColor: 'white',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.18)',
+                  border: '1px solid #E2E8F0',
+                  padding: '1rem',
+                  zIndex: 1000
+                }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem', borderBottom: '1px solid #eee', paddingBottom: '0.4rem' }}>
+                    <span style={{ fontWeight: 'bold', fontSize: '0.88rem', color: '#1E293B' }}>
+                      {isAr ? '🔔 الإشعارات' : '🔔 Notifications'}
+                    </span>
+                    <Link to="/profile" onClick={() => setShowNotifDropdown(false)} style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: 600 }}>
+                      {isAr ? 'الملف الشخصي' : 'Profile'}
+                    </Link>
+                  </div>
+
+                  {notifications.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '1rem 0', color: '#888', fontSize: '0.82rem' }}>
+                      {isAr ? 'لا توجد إشعارات جديدة' : 'No new notifications'}
+                    </div>
+                  ) : (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', maxHeight: '220px', overflowY: 'auto' }}>
+                      {notifications.map(n => (
+                        <div 
+                          key={n.id} 
+                          onClick={() => { setShowNotifDropdown(false); navigate('/profile'); }}
+                          style={{
+                            padding: '0.55rem 0.75rem',
+                            borderRadius: '8px',
+                            backgroundColor: '#F8FAFC',
+                            fontSize: '0.8rem',
+                            cursor: 'pointer',
+                            borderLeft: isAr ? 'none' : `3px solid ${n.status === 'Accepted' || n.status === 'Delivered' ? '#10B981' : (n.status === 'Rejected' ? '#EF4444' : '#3B82F6')}`,
+                            borderRight: isAr ? `3px solid ${n.status === 'Accepted' || n.status === 'Delivered' ? '#10B981' : (n.status === 'Rejected' ? '#EF4444' : '#3B82F6')}` : 'none'
+                          }}
+                        >
+                          {n.text}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
           {/* Desktop User Controls */}
           <div className={styles.desktopUserArea}>

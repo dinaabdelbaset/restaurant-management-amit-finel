@@ -471,7 +471,7 @@ const AdminPanel = () => {
                 <tbody>
                   {bookings.map(b => (
                     <tr key={b.id} className={styles.tr}>
-                      <td className={styles.td}>{b.user.name}</td>
+                      <td className={styles.td}>{b.user?.name || (isAr ? 'عميل' : 'Customer')}</td>
                       <td className={styles.td}>{b.booking_date} {b.booking_time}</td>
                       <td className={styles.td}>{b.guests}</td>
                       <td className={styles.td}>

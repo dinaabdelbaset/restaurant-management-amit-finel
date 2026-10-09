@@ -49,15 +49,17 @@ class PostController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
-        $data = $request->all();
+        $data = $request->only(['title', 'content']);
 
         if ($request->hasFile('image')) {
-            if ($post->image) {
+            if ($post->image && str_starts_with($post->image, '/storage/')) {
                 $oldPath = str_replace('/storage/', '', $post->image);
                 Storage::disk('public')->delete($oldPath);
             }
             $path = $request->file('image')->store('posts', 'public');
             $data['image'] = '/storage/' . $path;
+        } elseif ($request->filled('image') && is_string($request->image)) {
+            $data['image'] = $request->image;
         }
 
         $post->update($data);
@@ -68,7 +70,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        if ($post->image) {
+        if ($post->image && str_starts_with($post->image, '/storage/')) {
             $oldPath = str_replace('/storage/', '', $post->image);
             Storage::disk('public')->delete($oldPath);
         }
