@@ -8,7 +8,7 @@ import styles from './Profile.module.css';
 
 const Profile = () => {
   const { user, setUser } = useAuth();
-  const { t, language } = useLanguage();
+  const { t, tTitle, language } = useLanguage();
   const isAr = language === 'ar';
   const navigate = useNavigate();
   const [bookings, setBookings] = useState([]);
@@ -279,7 +279,7 @@ const Profile = () => {
                   <div className={styles.details} style={{ margin: '0.4rem 0' }}>
                     {(o.order_items || o.orderItems || []).map((i, idx) => (
                       <span key={idx} style={{ display: 'inline-block', backgroundColor: '#F1F5F9', padding: '0.15rem 0.45rem', borderRadius: '4px', marginInlineEnd: '0.35rem', marginBottom: '0.25rem', fontSize: '0.82rem' }}>
-                        {i.quantity}x {i.menu_item?.name || i.menuItem?.name || (isAr ? 'وجبة طعام' : 'Meal')}
+                        {i.quantity}x {tTitle(i.menu_item?.name || i.menuItem?.name || (isAr ? 'وجبة طعام' : 'Meal'))}
                       </span>
                     ))}
                   </div>

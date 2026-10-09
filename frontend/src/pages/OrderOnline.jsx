@@ -8,7 +8,7 @@ import styles from './OrderOnline.module.css';
 
 const OrderOnline = () => {
   const { user } = useAuth();
-  const { t, language } = useLanguage();
+  const { t, tTitle, language } = useLanguage();
   const isAr = language === 'ar';
   const navigate = useNavigate();
   const [cart, setCart] = useState([]);
@@ -163,7 +163,7 @@ const OrderOnline = () => {
                   {cart.map((item, idx) => (
                     <li key={idx} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', paddingBottom: '1rem', borderBottom: '1px solid #eee' }}>
                       <div>
-                        <div style={{ fontWeight: 500 }}>{item.name}</div>
+                        <div style={{ fontWeight: 500 }}>{tTitle(item.name)}</div>
                         <div style={{ fontSize: '0.875rem', color: '#666' }}>{item.quantity} x ${item.price}</div>
                         <button
                           type="button"

@@ -20,7 +20,8 @@ const dummyArticles = [
 ];
 
 const Blog = () => {
-  const { t } = useLanguage();
+  const { t, tTitle, language } = useLanguage();
+  const isAr = language === 'ar';
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -51,7 +52,7 @@ const Blog = () => {
       {/* Blog Grid */}
       <div className="container">
         {loading ? (
-          <p style={{ textAlign: 'center' }}>{t('blog_loading')}</p>
+          <p style={{ textAlign: 'center', fontSize: '1.1rem', color: '#666' }}>{t('blog_loading')}</p>
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
             {(articles.length > 0 ? articles : dummyArticles).map((article) => (
@@ -69,8 +70,8 @@ const Blog = () => {
                 <img src={article.image?.startsWith('/') ? `${import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:8000'}${article.image}` : article.image} alt={article.title} className={styles.cardImage} />
               </div>
               <div className={styles.cardContent}>
-                <span className={styles.cardDate}>{article.created_at ? new Date(article.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (article.date || 'Recent')}</span>
-                <h3 className={styles.cardTitle}>{article.title}</h3>
+                <span className={styles.cardDate}>{article.created_at ? new Date(article.created_at).toLocaleDateString(isAr ? 'ar-EG' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (article.date || (isAr ? 'يناير 2024' : 'Recent'))}</span>
+                <h3 className={styles.cardTitle}>{tTitle(article.title)}</h3>
               </div>
             </Link>
           ))}
@@ -82,5 +83,3 @@ const Blog = () => {
 };
 
 export default Blog;
-
-

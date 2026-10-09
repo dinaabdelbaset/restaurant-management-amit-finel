@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import styles from './Menu.module.css';
 
 const Menu = () => {
-  const { t } = useLanguage();
+  const { t, tTitle, tDesc, language } = useLanguage();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -80,7 +80,7 @@ const Menu = () => {
 
   const filteredItems = activeTab === 'All' ? displayItems : displayItems.filter(item => item.category === activeTab);
 
-  if (loading) return <div style={{ textAlign: 'center', padding: '5rem' }}>Loading menu...</div>;
+  if (loading) return <div style={{ textAlign: 'center', padding: '5rem', fontSize: '1.2rem', color: '#666' }}>{t('loading_menu')}</div>;
 
   return (
     <div style={{ position: 'relative' }}>
@@ -123,8 +123,8 @@ const Menu = () => {
                 <h3 className={styles.cardPrice}>
                   ${item.price}
                 </h3>
-                <h4 className={styles.cardName}>{item.name}</h4>
-                <p className={styles.cardDesc}>{item.description}</p>
+                <h4 className={styles.cardName}>{tTitle(item.name)}</h4>
+                <p className={styles.cardDesc}>{tDesc(item.description)}</p>
                 <button onClick={() => addToCart(item)} className={`btn btn-outline ${styles.addToCartBtn}`}>
                   {t('add_to_cart')}
                 </button>
@@ -132,7 +132,7 @@ const Menu = () => {
             </div>
           ))}
           {filteredItems.length === 0 && (
-            <div style={{ gridColumn: '1 / -1', padding: '3rem', color: 'var(--text-gray)' }}>No items found in this category.</div>
+            <div style={{ gridColumn: '1 / -1', padding: '3rem', color: 'var(--text-gray)', textAlign: 'center' }}>{t('no_items_found')}</div>
           )}
         </div>
       </div>
@@ -141,11 +141,11 @@ const Menu = () => {
       <section style={{ backgroundColor: '#F9F9F7', padding: '6rem 0' }}>
         <div className="container" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '4rem' }}>
           <div style={{ flex: '1 1 350px' }}>
-            <h2 style={{ fontSize: '3.5rem', fontFamily: 'var(--font-heading)', lineHeight: 1.1, marginBottom: '1.5rem', color: '#2C2F24' }}>
-              You can order<br />through apps
+            <h2 style={{ fontSize: '3rem', fontFamily: 'var(--font-heading)', lineHeight: 1.2, marginBottom: '1.5rem', color: '#2C2F24' }}>
+              {t('apps_title')}
             </h2>
-            <p style={{ color: 'var(--text-gray)', fontSize: '1.1rem', maxWidth: '400px', lineHeight: 1.6 }}>
-              Lorem ipsum dolor sit amet consectetur adipiscing elit enim bibendum sed et aliquet aliquet risus tempor semper.
+            <p style={{ color: 'var(--text-gray)', fontSize: '1.05rem', maxWidth: '420px', lineHeight: 1.7 }}>
+              {t('apps_desc')}
             </p>
           </div>
           <div style={{ flex: '2 1 600px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>

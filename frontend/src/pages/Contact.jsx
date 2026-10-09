@@ -3,7 +3,8 @@ import axios from 'axios';
 import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const isAr = language === 'ar';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,10 +21,10 @@ const Contact = () => {
     e.preventDefault();
     try {
       await axios.post('/contact', formData);
-      setStatus('Thank you for contacting us! We will get back to you soon.');
+      setStatus(t('contact_success'));
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch {
-      setStatus('Failed to send message. Please try again.');
+      setStatus(t('contact_failed'));
     }
   };
 
@@ -31,7 +32,11 @@ const Contact = () => {
     <div style={{ position: 'relative' }}>
       
       {/* Header Section */}
-      {status && <div style={{ backgroundColor: '#e8f5e9', color: '#2e7d32', padding: '1rem', textAlign: 'center', fontWeight: 'bold' }}>{status}</div>}
+      {status && (
+        <div style={{ backgroundColor: status.includes('فشل') || status.includes('Failed') ? '#ffebee' : '#e8f5e9', color: status.includes('فشل') || status.includes('Failed') ? '#c62828' : '#2e7d32', padding: '1rem', textAlign: 'center', fontWeight: 'bold' }}>
+          {status}
+        </div>
+      )}
       <div style={{ backgroundColor: '#F9F9F7', padding: 'clamp(3rem, 6vw, 5rem) 1rem clamp(6rem, 10vw, 9rem) 1rem', textAlign: 'center' }}>
         <h1 style={{ fontSize: 'clamp(2.2rem, 5vw, 4rem)', fontFamily: 'var(--font-heading)', marginBottom: '1rem', color: '#2C2F24' }}>{t('contact_heading')}</h1>
         <p style={{ color: 'var(--text-gray)', maxWidth: '600px', margin: '0 auto', fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', lineHeight: 1.6 }}>
@@ -65,11 +70,11 @@ const Contact = () => {
                 />
               </div>
               <div style={{ flex: '1 1 250px' }}>
-                <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem', color: '#2C2F24' }}>Email</label>
+                <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem', color: '#2C2F24' }}>{t('contact_email')}</label>
                 <input 
                   type="email" 
                   name="email"
-                  placeholder="Enter your email" 
+                  placeholder={t('contact_email_placeholder')} 
                   className="form-input" 
                   style={{ width: '100%', padding: '0.9rem 1.25rem', borderRadius: '50px', border: '1px solid #ddd' }} 
                   value={formData.email} 
@@ -84,7 +89,7 @@ const Contact = () => {
               <input 
                 type="text" 
                 name="subject"
-                placeholder="Subject..." 
+                placeholder={t('contact_subject_placeholder')} 
                 className="form-input" 
                 style={{ width: '100%', padding: '0.9rem 1.25rem', borderRadius: '50px', border: '1px solid #ddd' }} 
                 value={formData.subject} 
@@ -97,7 +102,7 @@ const Contact = () => {
               <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem', color: '#2C2F24' }}>{t('contact_message')}</label>
               <textarea 
                 name="message"
-                placeholder="..." 
+                placeholder={t('contact_message_placeholder')} 
                 className="form-input" 
                 style={{ width: '100%', padding: '1.25rem', borderRadius: '16px', border: '1px solid #ddd', minHeight: '130px', resize: 'vertical' }} 
                 value={formData.message} 
@@ -115,17 +120,16 @@ const Contact = () => {
       <div className="container" style={{ paddingBottom: '5rem' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '2rem', maxWidth: '900px', margin: '0 auto', textAlign: 'center' }}>
           <div>
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#2C2F24', fontWeight: 600 }}>Call Us</h3>
-            <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '1.2rem' }}>+1-234-567-8900</p>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#2C2F24', fontWeight: 600 }}>{t('contact_call_us')}</h3>
+            <p style={{ color: 'var(--primary)', fontWeight: 'bold', fontSize: '1.2rem' }} dir="ltr">+1 (414) 857-0107</p>
           </div>
           <div>
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#2C2F24', fontWeight: 600 }}>Hours</h3>
-            <p style={{ color: 'var(--text-gray)', marginBottom: '0.25rem', fontSize: '0.95rem' }}>Mon-Fri: 11am - 8pm</p>
-            <p style={{ color: 'var(--text-gray)', fontSize: '0.95rem' }}>Sat, Sun: 9am - 10pm</p>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#2C2F24', fontWeight: 600 }}>{t('contact_hours')}</h3>
+            <p style={{ color: 'var(--text-gray)', fontSize: '0.95rem', lineHeight: 1.6 }}>{t('contact_hours_val')}</p>
           </div>
           <div>
-            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#2C2F24', fontWeight: 600 }}>Our Location</h3>
-            <p style={{ color: 'var(--text-gray)', lineHeight: 1.6, fontSize: '0.95rem' }}>123 Bridge Street<br/>Nowhere Land, LA 12345<br/>United States</p>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.75rem', color: '#2C2F24', fontWeight: 600 }}>{t('contact_location')}</h3>
+            <p style={{ color: 'var(--text-gray)', lineHeight: 1.6, fontSize: '0.95rem' }}>{t('address_val')}</p>
           </div>
         </div>
       </div>

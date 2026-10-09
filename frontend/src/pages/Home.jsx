@@ -6,7 +6,8 @@ import { useLanguage } from '../context/LanguageContext';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const { t } = useLanguage();
+  const { t, tTitle, tDesc, language } = useLanguage();
+  const isAr = language === 'ar';
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -188,9 +189,9 @@ const Home = () => {
                     <img src={getImgSrc(featured.image)} alt={featured.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   </div>
                   <div style={{ padding: '1.75rem', flex: 1 }}>
-                    <span style={{ color: 'var(--text-gray)', fontSize: '0.85rem', marginBottom: '0.75rem', display: 'block' }}>{featured.created_at ? new Date(featured.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (featured.date || 'Recent')}</span>
-                    <h3 style={{ fontSize: '1.3rem', color: '#2C2F24', fontWeight: 600, marginBottom: '0.75rem', lineHeight: 1.4 }}>{featured.title}</h3>
-                    <p style={{ color: 'var(--text-gray)', lineHeight: 1.6, fontSize: '0.95rem' }}>{featured.content?.substring(0, 140)}...</p>
+                    <span style={{ color: 'var(--text-gray)', fontSize: '0.85rem', marginBottom: '0.75rem', display: 'block' }}>{featured.created_at ? new Date(featured.created_at).toLocaleDateString(isAr ? 'ar-EG' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (featured.date || (isAr ? 'يناير 2024' : 'Recent'))}</span>
+                    <h3 style={{ fontSize: '1.3rem', color: '#2C2F24', fontWeight: 600, marginBottom: '0.75rem', lineHeight: 1.4 }}>{tTitle(featured.title)}</h3>
+                    <p style={{ color: 'var(--text-gray)', lineHeight: 1.6, fontSize: '0.95rem' }}>{tDesc(featured.content)?.substring(0, 140)}...</p>
                   </div>
                 </Link>
 
@@ -202,8 +203,8 @@ const Home = () => {
                         <img src={getImgSrc(article.image || article.img)} alt={article.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       </div>
                       <div style={{ padding: '1.25rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ color: 'var(--text-gray)', fontSize: '0.8rem', marginBottom: '0.4rem', display: 'block' }}>{article.created_at ? new Date(article.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (article.date || 'Recent')}</span>
-                        <h3 style={{ fontSize: '1.05rem', color: '#2C2F24', fontWeight: 600, lineHeight: 1.4 }}>{article.title}</h3>
+                        <span style={{ color: 'var(--text-gray)', fontSize: '0.8rem', marginBottom: '0.4rem', display: 'block' }}>{article.created_at ? new Date(article.created_at).toLocaleDateString(isAr ? 'ar-EG' : 'en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (article.date || (isAr ? 'يناير 2024' : 'Recent'))}</span>
+                        <h3 style={{ fontSize: '1.05rem', color: '#2C2F24', fontWeight: 600, lineHeight: 1.4 }}>{tTitle(article.title)}</h3>
                       </div>
                     </Link>
                   ))}

@@ -1,5 +1,103 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+const itemTranslations = {
+  // Menu item names
+  'Fried Eggs': { ar: 'بيض مقلي مع الخضار', en: 'Fried Eggs' },
+  'Hawaiian Pizza': { ar: 'بيتزا هاواي الإيطالية', en: 'Hawaiian Pizza' },
+  'Martinez Cocktail': { ar: 'كوكتيل مارتينيز المنعش', en: 'Martinez Cocktail' },
+  'Butterscotch Cake': { ar: 'كيكة بترسكوتش الفاخرة', en: 'Butterscotch Cake' },
+  'Mint Lemonade': { ar: 'عصير ليموناضة بالنعناع', en: 'Mint Lemonade' },
+  'Chocolate Icecream': { ar: 'آيس كريم الشوكولاتة البلجيكية', en: 'Chocolate Icecream' },
+  'Cheese Burger': { ar: 'تشيز برجر كلاسيك فاخر', en: 'Cheese Burger' },
+  'Classic Waffles': { ar: 'وافل كلاسيكي بالعسل والفواكه', en: 'Classic Waffles' },
+
+  // Menu item descriptions
+  'Made with eggs, lettuce, salt, oil and other ingredients.': {
+    ar: 'محضر من البيض الطازج والخس المقرمش مع رشة ملح وزيت زيتون بكر ومكونات عضوية.',
+    en: 'Made with eggs, lettuce, salt, oil and other ingredients.'
+  },
+  'Made with pizza dough, cheese, and other ingredients.': {
+    ar: 'عجينة بيتزا طازجة مخبوزة على الحطب مع جبن الموزاريلا الفاخر وصلصة الطماطم الغنية.',
+    en: 'Made with pizza dough, cheese, and other ingredients.'
+  },
+  'Made with sugar, lime, soda, ice and other ingredients.': {
+    ar: 'مزيج منعش من الليمون الطازج والصودا ومكعبات الثلج مع لمسة نكهة طبيعية منعشة.',
+    en: 'Made with sugar, lime, soda, ice and other ingredients.'
+  },
+  'Made with sugar, flour, butter and other ingredients.': {
+    ar: 'كعكة إسفنجية شهية بالزبدة الفاخرة والكراميل الغني تعلوها كريمة مخفوقة ناعمة.',
+    en: 'Made with sugar, flour, butter and other ingredients.'
+  },
+  'Made with mint, lime, salt, ice and other ingredients.': {
+    ar: 'عصير ليمون طبيعي منعش ممزوج بأوراق النعناع الخضراء الطازجة والثلج المجروش.',
+    en: 'Made with mint, lime, salt, ice and other ingredients.'
+  },
+  'Made with chocolate, milk, cream and other ingredients.': {
+    ar: 'محضر من أجود أنواع الشوكولاتة والحليب الطازج والكريمة الغنية بمذاق لا يُقاوم.',
+    en: 'Made with chocolate, milk, cream and other ingredients.'
+  },
+  'Made with buns, patty, cheese, and other ingredients.': {
+    ar: 'خبز بريوش طري مع شريحة لحم بقري مشوية وجبن الشيدر الذائب والصوص الخاص.',
+    en: 'Made with buns, patty, cheese, and other ingredients.'
+  },
+  'Made with waffles, fruit, syrup and other ingredients.': {
+    ar: 'وافل ذهبي مقرمش يقدم مع قطع الفواكه الطازجة وسيرب القيقب اللذيذ.',
+    en: 'Made with waffles, fruit, syrup and other ingredients.'
+  },
+
+  // Article titles
+  'The secret tips & tricks to prepare a perfect burger & pizza for our customers': {
+    ar: 'أسرار وحيل تحضير البرجر والبيتزا المثالية لزبائننا الكرام',
+    en: 'The secret tips & tricks to prepare a perfect burger & pizza for our customers'
+  },
+  'Exclusive baking lessons from the pastry king': {
+    ar: 'دروس حصرية في فن الخبز والمعجنات من ملك الحلويات',
+    en: 'Exclusive baking lessons from the pastry king'
+  },
+  'How to prepare the perfect fries in an air fryer': {
+    ar: 'كيفية تحضير بطاطس مقلية مقرمشة ومثالية في المقلاة الهوائية',
+    en: 'How to prepare the perfect fries in an air fryer'
+  },
+  'How to prepare the perfect french fries in an air fryer': {
+    ar: 'كيفية تحضير بطاطس مقلية مقرمشة ومثالية في المقلاة الهوائية',
+    en: 'How to prepare the perfect french fries in an air fryer'
+  },
+  'How to prepare delicious chicken tenders': {
+    ar: 'طريقة إعداد أصابع الدجاج المقرمشة والشهية (تشيكن تندر)',
+    en: 'How to prepare delicious chicken tenders'
+  },
+  '5 great cooking gadgets you can buy to save time': {
+    ar: '٥ أدوات طهي مبتكرة توفر وقتك وتسهل حياتك في المطبخ',
+    en: '5 great cooking gadgets you can buy to save time'
+  },
+  'How to prepare a delicious gluten free sushi': {
+    ar: 'طريقة تحضير سوشي ياباني شهي وخالٍ تماماً من الجلوتين',
+    en: 'How to prepare a delicious gluten free sushi'
+  },
+  '7 delicious cheesecake recipes you can prepare': {
+    ar: '٧ وصفات تشيز كيك مذهلة وسهلة يمكنك إعدادها في المنزل',
+    en: '7 delicious cheesecake recipes you can prepare'
+  },
+  '5 great pizza restaurants you should visit this city': {
+    ar: 'أفضل ٥ مطاعم بيتزا تستحق الزيارة والتجربة في المدينة',
+    en: '5 great pizza restaurants you should visit this city'
+  },
+  'Top 20 simple and quick desserts for kids': {
+    ar: 'أفضل ٢٠ وصفة حلويات سريعة وسهلة ومحبوبة للأطفال',
+    en: 'Top 20 simple and quick desserts for kids'
+  },
+
+  // Article contents / summaries
+  'Crispy on the outside, tender on the inside: here is how to season and cook golden french fries using an air fryer with minimal oil.': {
+    ar: 'مقرمشة من الخارج، وطرية ولذيذة من الداخل: إليكم خطوات تتبيل وطهي البطاطس المقلية الذهبية الشهية باستخدام المقلاة الهوائية بأقل كمية زيت ممكنة لتجربة صحية ومثالية.',
+    en: 'Crispy on the outside, tender on the inside: here is how to season and cook golden french fries using an air fryer with minimal oil.'
+  },
+  'Creating the perfect burger and pizza is an art, combining ingredients, techniques, and passion to craft a culinary masterpiece.': {
+    ar: 'صنع البرجر والبيتزا المثالية فن يجمع بين المكونات الفاخرة والتقنيات المدروسة والشغف لابتكار تحفة طهي استثنائية.',
+    en: 'Creating the perfect burger and pizza is an art, combining ingredients, techniques, and passion to craft a culinary masterpiece.'
+  },
+};
+
 const translations = {
   en: {
     // Navbar
@@ -80,6 +178,11 @@ const translations = {
     blog_page_title: 'Our Blog & Articles',
     blog_page_subtitle: 'We consider all the drivers of change gives you the components you need to create a truly delightful dining experience.',
     blog_loading: 'Loading posts...',
+    blog_min_read: '5 min read',
+    blog_guide_tag: 'Culinary Guide',
+    blog_author: 'Chef Marco Oliver',
+    blog_read_more: 'Read More Articles',
+    blog_read_more_sub: 'Discover more exclusive recipes, cooking guides, and chef secrets from our kitchen.',
 
     // About Page
     about_hero_title: 'We provide healthy food for your family.',
@@ -105,6 +208,10 @@ const translations = {
     cat_all: 'All',
     add_to_cart: 'Add to Cart',
     added_to_cart: 'Added to cart!',
+    apps_title: 'You can order through apps',
+    apps_desc: 'Order your favorite dishes from Bistro Bliss through your preferred delivery apps and enjoy fast service and exclusive deals.',
+    no_items_found: 'No items found in this category.',
+    loading_menu: 'Loading menu...',
 
     // Book Table Page
     book_heading: 'Book A Table',
@@ -125,6 +232,15 @@ const translations = {
     contact_subject: 'Subject',
     contact_message: 'Message',
     contact_send: 'Send Message',
+    contact_email_placeholder: 'Enter your email',
+    contact_subject_placeholder: 'Subject...',
+    contact_message_placeholder: 'Write your message here...',
+    contact_success: 'Thank you for contacting us! We will get back to you soon.',
+    contact_failed: 'Failed to send message. Please try again.',
+    contact_call_us: 'Call Us:',
+    contact_hours: 'Hours:',
+    contact_hours_val: 'Mon-Fri: 11am - 8pm | Sat, Sun: 9am - 10pm',
+    contact_location: 'Our Location:',
 
     // Order Online / Checkout
     order_heading: 'Your Order & Cart',
@@ -285,6 +401,11 @@ const translations = {
     blog_page_title: 'مقالاتنا وأخبار الطهي',
     blog_page_subtitle: 'نشارككم أسرار وفنون الطهي وأحدث النصائح والوصفات الشهية من طهاتنا المحترفين.',
     blog_loading: 'جاري تحميل المقالات...',
+    blog_min_read: '٥ دقائق قراءة',
+    blog_guide_tag: 'دليل الطهي',
+    blog_author: 'الشيف ماركو أوليفير',
+    blog_read_more: 'مقالات وأخبار طهي أخرى',
+    blog_read_more_sub: 'اكتشف المزيد من المقالات المميزة والنصائح الحصرية من كبار الطهاة لدينا.',
 
     // About Page
     about_hero_title: 'نقدم طعاماً صحياً وفاخراً لك ولعائلتك.',
@@ -310,6 +431,10 @@ const translations = {
     cat_all: 'الكل',
     add_to_cart: 'أضف إلى السلة',
     added_to_cart: 'تمت الإضافة إلى السلة!',
+    apps_title: 'يمكنك الطلب عبر تطبيقات التوصيل',
+    apps_desc: 'اطلب وجباتك المفضلة من بيسترو بليس عبر تطبيقات التوصيل المفضلة لديك واستمتع بخدمة سريعة وعروض حصرية.',
+    no_items_found: 'لا توجد أصناف في هذا التصنيف حالياً.',
+    loading_menu: 'جاري تحميل قائمة الطعام...',
 
     // Book Table Page
     book_heading: 'حجز طاولة في المطعم',
@@ -330,6 +455,15 @@ const translations = {
     contact_subject: 'الموضوع',
     contact_message: 'نص الرسالة',
     contact_send: 'إرسال الرسالة',
+    contact_email_placeholder: 'أدخل بريدك الإلكتروني',
+    contact_subject_placeholder: 'اكتب موضوع الرسالة هنا...',
+    contact_message_placeholder: 'اكتب رسالتك أو استفسارك بالتفصيل هنا...',
+    contact_success: 'شكراً لتواصلك معنا! سنرد على استفسارك في أقرب وقت.',
+    contact_failed: 'فشل إرسال الرسالة، يرجى المحاولة مرة أخرى.',
+    contact_call_us: 'اتصل بنا:',
+    contact_hours: 'أوقات العمل:',
+    contact_hours_val: 'من الإثنين إلى الجمعة: 11 ص - 8 م | السبت والأحد: 9 ص - 10 م',
+    contact_location: 'موقعنا:',
 
     // Order Online / Checkout
     order_heading: 'سلة الطلبات والمشتريات',
@@ -436,11 +570,23 @@ export const LanguageProvider = ({ children }) => {
   };
 
   const t = (key) => {
-    return translations[language]?.[key] || translations['en']?.[key] || key;
+    if (!key) return '';
+    const cleanKey = String(key).trim();
+    if (translations[language]?.[cleanKey]) return translations[language][cleanKey];
+    if (itemTranslations[cleanKey]?.[language]) return itemTranslations[cleanKey][language];
+    
+    // Fallback to case-insensitive lookup in itemTranslations
+    const found = Object.keys(itemTranslations).find(k => k.toLowerCase() === cleanKey.toLowerCase());
+    if (found && itemTranslations[found]?.[language]) return itemTranslations[found][language];
+
+    return translations['en']?.[cleanKey] || key;
   };
 
+  const tTitle = (title) => t(title);
+  const tDesc = (desc) => t(desc);
+
   return (
-    <LanguageContext.Provider value={{ language, toggleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, toggleLanguage, t, tTitle, tDesc }}>
       {children}
     </LanguageContext.Provider>
   );
