@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
-import { Bell, Calendar, ShoppingBag, CheckCircle2, Clock, XCircle, Truck, MapPin, Phone, CreditCard } from 'lucide-react';
+import { Bell, Calendar, ShoppingBag, CheckCircle2, Clock, XCircle, Truck } from 'lucide-react';
 import styles from './Profile.module.css';
 
 const Profile = () => {

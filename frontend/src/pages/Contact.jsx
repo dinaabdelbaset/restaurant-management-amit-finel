@@ -19,6 +19,11 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      setStatus(isAr ? 'خطأ: يرجى إدخال بريد إلكتروني صحيح يتضمن النطاق (مثل: name@example.com)' : 'Error: Please enter a valid email address (e.g. name@example.com)');
+      return;
+    }
     try {
       await axios.post('/contact', formData);
       setStatus(t('contact_success'));
