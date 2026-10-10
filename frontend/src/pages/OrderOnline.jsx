@@ -114,7 +114,6 @@ const OrderOnline = () => {
                       type="text"
                       className="form-input"
                       placeholder="4532 •••• •••• 8890"
-                      defaultValue="4532 8901 2345 6789"
                       required={paymentMethod === 'Card'}
                     />
                   </div>
@@ -128,7 +127,6 @@ const OrderOnline = () => {
                         type="text"
                         className="form-input"
                         placeholder="MM/YY"
-                        defaultValue="08/28"
                         required={paymentMethod === 'Card'}
                       />
                     </div>
@@ -141,7 +139,6 @@ const OrderOnline = () => {
                         maxLength="4"
                         className="form-input"
                         placeholder="•••"
-                        defaultValue="842"
                         required={paymentMethod === 'Card'}
                       />
                     </div>
