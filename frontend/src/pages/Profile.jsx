@@ -19,7 +19,7 @@ const Profile = () => {
   const [updateMsg, setUpdateMsg] = useState('');
   const [bookingTab, setBookingTab] = useState('all'); // 'all', 'current', 'previous'
   const [orderTab, setOrderTab] = useState('all'); // 'all', 'active', 'past'
-
+  // 6
   useEffect(() => {
     if (!user) {
       navigate('/login');
@@ -42,9 +42,9 @@ const Profile = () => {
     };
     fetchData();
   }, [user, navigate]);
-
+  //  7
   if (loading) return <div style={{ textAlign: 'center', padding: '5rem', fontSize: '1.2rem', color: '#666' }}>{isAr ? 'جاري التحميل...' : 'Loading...'}</div>;
-
+  // 8
   const getStatusColor = (status) => {
     switch (status) {
       case 'Accepted': case 'Delivered': return '#2e7d32';
@@ -53,7 +53,7 @@ const Profile = () => {
       default: return '#1565c0';
     }
   };
-
+  // 9
   const getStatusIcon = (status) => {
     switch (status) {
       case 'Accepted': case 'Delivered': return <CheckCircle2 size={16} color="#2e7d32" />;
@@ -62,21 +62,21 @@ const Profile = () => {
       default: return <Clock size={16} color="#1565c0" />;
     }
   };
+  // 10
 
-  // Filter bookings: Current = Pending or future; Previous = Accepted/Rejected
   const currentBookings = bookings.filter(b => b.status === 'Pending');
   const previousBookings = bookings.filter(b => b.status === 'Accepted' || b.status === 'Rejected');
   const displayedBookings = bookingTab === 'current' ? currentBookings : (bookingTab === 'previous' ? previousBookings : bookings);
+  // 11
 
-  // Filter orders: Active = Pending/Accepted/In Progress; Past = Delivered/Rejected
   const activeOrders = orders.filter(o => o.status === 'Pending' || o.status === 'Accepted' || o.status === 'In Progress');
   const pastOrders = orders.filter(o => o.status === 'Delivered' || o.status === 'Rejected');
   const displayedOrders = orderTab === 'active' ? activeOrders : (orderTab === 'past' ? pastOrders : orders);
+  // 12
 
-  // Notifications: any bookings or orders that have been updated by admin
   const bookingNotifications = bookings.filter(b => b.status === 'Accepted' || b.status === 'Rejected');
   const orderNotifications = orders.filter(o => o.status === 'Accepted' || o.status === 'In Progress' || o.status === 'Delivered' || o.status === 'Rejected');
-
+  // 13
   return (
     <div className={`container ${styles.container}`}>
       {/* Profile Header */}
