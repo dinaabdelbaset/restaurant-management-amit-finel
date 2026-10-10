@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useNavigate } from 'react-router-dom';
 import styles from './BookTable.module.css';
+import { normalizeArabicNumbers } from '../utils/formatters';
 
 const BookTable = () => {
   const { user } = useAuth();
@@ -24,8 +25,9 @@ const BookTable = () => {
       return;
     }
 
+    const cleanPhone = normalizeArabicNumbers(phone);
     const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
-    if (!phoneRegex.test(phone.trim())) {
+    if (!phoneRegex.test(cleanPhone)) {
       setMsg(isAr ? 'خطأ: يرجى إدخال رقم هاتف مصري صحيح (11 رقماً يبدأ بـ 010 أو 011 أو 012 أو 015).' : 'Error: Please enter a valid 11-digit Egyptian phone number (starts with 010, 011, 012, or 015).');
       return;
     }

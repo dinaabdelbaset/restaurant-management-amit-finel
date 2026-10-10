@@ -10,8 +10,22 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    private function normalizeArabicNumbers($str)
+    {
+        if (! $str) return $str;
+        $eastern = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+        $persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        $latin = range(0, 9);
+        $str = str_replace($eastern, $latin, $str);
+        return str_replace($persian, $latin, $str);
+    }
+
     public function register(Request $request)
     {
+        if ($request->has('phone') && $request->phone) {
+            $request->merge(['phone' => $this->normalizeArabicNumbers($request->phone)]);
+        }
+
         $request->validate([
             'name' => 'required|string|min:2|max:255',
             'email' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
@@ -97,10 +111,16 @@ class AuthController extends Controller
     {
         $user = $request->user();
         
+        if ($request->has('phone') && $request->phone) {
+            $request->merge(['phone' => $this->normalizeArabicNumbers($request->phone)]);
+        }
+
         $request->validate([
             'name' => 'sometimes|string|max:255',
-            'phone' => 'nullable|string|max:20',
-            'password' => 'nullable|string|min:8'
+            'phone' => ['nullable', 'string', 'regex:/^(010|011|012|015)[0-9]{8}$/'],
+            'password' => 'nullable|string|min:6'
+        ], [
+            'phone.regex' => 'The phone number must be a valid 11-digit Egyptian phone number (e.g. 01012345678).'
         ]);
 
         $data = $request->only(['name', 'phone']);

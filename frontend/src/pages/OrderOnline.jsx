@@ -5,6 +5,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { Trash2 } from 'lucide-react';
 import styles from './OrderOnline.module.css';
+import { normalizeArabicNumbers } from '../utils/formatters';
 
 const OrderOnline = () => {
   const { user } = useAuth();
@@ -44,8 +45,9 @@ const OrderOnline = () => {
     setIsProcessing(true);
     setMsg('');
 
+    const cleanPhone = normalizeArabicNumbers(phone);
     const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
-    if (!phoneRegex.test(phone.trim())) {
+    if (!phoneRegex.test(cleanPhone)) {
       setIsProcessing(false);
       setMsg(isAr ? 'خطأ: يرجى إدخال رقم هاتف مصري صحيح (11 رقماً يبدأ بـ 010 أو 011 أو 012 أو 015).' : 'Error: Please enter a valid 11-digit Egyptian phone number (e.g. 01012345678).');
       return;
@@ -58,7 +60,7 @@ const OrderOnline = () => {
 
     try {
       await axios.post('/orders', {
-        address, phone, notes, payment_method: paymentMethod, items: cart
+        address, phone: cleanPhone, notes, payment_method: paymentMethod, items: cart
       });
       setMsg(paymentMethod === 'Card' ? (isAr ? 'تم الدفع بنجاح! تم استلام طلبك.' : 'Payment successful! Order placed.') : (isAr ? 'تم استلام طلبك بنجاح!' : 'Order placed successfully!'));
       setCart([]);

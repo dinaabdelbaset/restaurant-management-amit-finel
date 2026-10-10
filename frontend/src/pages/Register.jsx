@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
 import toast from 'react-hot-toast';
+import { normalizeArabicNumbers } from '../utils/formatters';
 
 const Register = () => {
   const [name, setName] = React.useState('');
@@ -27,9 +28,10 @@ const Register = () => {
       return;
     }
 
-    if (phone && phone.trim()) {
+    const cleanPhone = normalizeArabicNumbers(phone);
+    if (cleanPhone) {
       const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
-      if (!phoneRegex.test(phone.trim())) {
+      if (!phoneRegex.test(cleanPhone)) {
         const msg = isAr ? 'رقم الهاتف يجب أن يكون رقماً مصرياً صحيحاً مكون من 11 رقماً (مثال: 01012345678)' : 'Phone number must be a valid 11-digit Egyptian number (e.g. 01012345678)';
         toast.error(msg);
         setError(msg);
@@ -45,7 +47,7 @@ const Register = () => {
     }
 
     try {
-      await register(name.trim(), email.trim(), password, phone ? phone.trim() : null);
+      await register(name.trim(), email.trim(), password, cleanPhone || null);
       toast.success(isAr ? 'تم إنشاء الحساب بنجاح!' : 'Registered successfully!');
       navigate('/profile');
     } catch (err) {
