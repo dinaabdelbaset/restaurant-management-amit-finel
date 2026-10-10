@@ -46,7 +46,7 @@ const Profile = () => {
   if (loading) return <div style={{ textAlign: 'center', padding: '5rem', fontSize: '1.2rem', color: '#666' }}>{isAr ? 'جاري التحميل...' : 'Loading...'}</div>;
 
   const getStatusColor = (status) => {
-    switch(status) {
+    switch (status) {
       case 'Accepted': case 'Delivered': return '#2e7d32';
       case 'Rejected': return '#c62828';
       case 'In Progress': return '#f57c00';
@@ -55,7 +55,7 @@ const Profile = () => {
   };
 
   const getStatusIcon = (status) => {
-    switch(status) {
+    switch (status) {
       case 'Accepted': case 'Delivered': return <CheckCircle2 size={16} color="#2e7d32" />;
       case 'Rejected': return <XCircle size={16} color="#c62828" />;
       case 'In Progress': return <Truck size={16} color="#f57c00" />;
@@ -100,15 +100,15 @@ const Profile = () => {
             }} style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem', maxWidth: '420px' }}>
               <div>
                 <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#555' }}>{isAr ? 'الاسم' : 'Name'}</label>
-                <input type="text" value={editForm.name} onChange={e => setEditForm({...editForm, name: e.target.value})} className="form-input" placeholder={isAr ? 'الاسم' : 'Name'} required />
+                <input type="text" value={editForm.name} onChange={e => setEditForm({ ...editForm, name: e.target.value })} className="form-input" placeholder={isAr ? 'الاسم' : 'Name'} required />
               </div>
               <div>
                 <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#555' }}>{isAr ? 'رقم الهاتف' : 'Phone'}</label>
-                <input type="text" value={editForm.phone} onChange={e => setEditForm({...editForm, phone: e.target.value})} className="form-input" placeholder={isAr ? 'رقم الهاتف' : 'Phone'} />
+                <input type="text" value={editForm.phone} onChange={e => setEditForm({ ...editForm, phone: e.target.value })} className="form-input" placeholder={isAr ? 'رقم الهاتف' : 'Phone'} />
               </div>
               <div>
                 <label style={{ fontSize: '0.85rem', fontWeight: 600, color: '#555' }}>{isAr ? 'كلمة المرور الجديدة (اختياري)' : 'New Password (optional)'}</label>
-                <input type="password" value={editForm.password} onChange={e => setEditForm({...editForm, password: e.target.value})} className="form-input" placeholder={isAr ? 'كلمة المرور الجديدة' : 'New Password'} minLength="8" />
+                <input type="password" value={editForm.password} onChange={e => setEditForm({ ...editForm, password: e.target.value })} className="form-input" placeholder={isAr ? 'كلمة المرور الجديدة' : 'New Password'} minLength="8" />
               </div>
               <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.5rem' }}>
                 <button type="submit" className="btn btn-primary" style={{ padding: '0.5rem 1.25rem' }}>{isAr ? 'حفظ' : 'Save'}</button>
@@ -149,8 +149,8 @@ const Profile = () => {
               <div key={`notif-b-${b.id}`} style={{ padding: '0.6rem 0.9rem', backgroundColor: b.status === 'Accepted' ? '#ECFDF5' : '#FEF2F2', borderLeft: isAr ? 'none' : `4px solid ${b.status === 'Accepted' ? '#10B981' : '#EF4444'}`, borderRight: isAr ? `4px solid ${b.status === 'Accepted' ? '#10B981' : '#EF4444'}` : 'none', borderRadius: '6px', fontSize: '0.88rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 {b.status === 'Accepted' ? '🎉' : '⚠️'}
                 <span>
-                  {isAr 
-                    ? `حجز الطاولة بتاريخ ${b.booking_date} الساعة ${b.booking_time} تم: ` 
+                  {isAr
+                    ? `حجز الطاولة بتاريخ ${b.booking_date} الساعة ${b.booking_time} تم: `
                     : `Table booking for ${b.booking_date} at ${b.booking_time} has been: `}
                   <strong style={{ color: b.status === 'Accepted' ? '#047857' : '#B91C1C' }}>
                     {b.status === 'Accepted' ? (isAr ? 'قبوله بنجاح!' : 'Accepted!') : (isAr ? 'رفضه.' : 'Rejected.')}
@@ -182,18 +182,18 @@ const Profile = () => {
             </div>
             {/* Filter pills: All, Current, Previous */}
             <div style={{ display: 'flex', gap: '0.35rem', backgroundColor: '#F1F5F9', padding: '0.2rem', borderRadius: '8px' }}>
-              <button 
-                onClick={() => setBookingTab('all')} 
+              <button
+                onClick={() => setBookingTab('all')}
                 style={{ border: 'none', background: bookingTab === 'all' ? '#2C2F24' : 'transparent', color: bookingTab === 'all' ? 'white' : '#64748B', padding: '0.25rem 0.6rem', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: bookingTab === 'all' ? 'bold' : 'normal' }}>
                 {isAr ? 'الكل' : 'All'} ({bookings.length})
               </button>
-              <button 
-                onClick={() => setBookingTab('current')} 
+              <button
+                onClick={() => setBookingTab('current')}
                 style={{ border: 'none', background: bookingTab === 'current' ? '#2C2F24' : 'transparent', color: bookingTab === 'current' ? 'white' : '#64748B', padding: '0.25rem 0.6rem', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: bookingTab === 'current' ? 'bold' : 'normal' }}>
                 {isAr ? 'الحالية' : 'Current'} ({currentBookings.length})
               </button>
-              <button 
-                onClick={() => setBookingTab('previous')} 
+              <button
+                onClick={() => setBookingTab('previous')}
                 style={{ border: 'none', background: bookingTab === 'previous' ? '#2C2F24' : 'transparent', color: bookingTab === 'previous' ? 'white' : '#64748B', padding: '0.25rem 0.6rem', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: bookingTab === 'previous' ? 'bold' : 'normal' }}>
                 {isAr ? 'السابقة' : 'Previous'} ({previousBookings.length})
               </button>
@@ -203,8 +203,8 @@ const Profile = () => {
           {displayedBookings.length === 0 ? (
             <p style={{ color: '#888', textAlign: 'center', padding: '2rem 1rem' }}>
               {bookingTab === 'current' ? (isAr ? 'لا توجد حجوزات حالية قيد الانتظار.' : 'No current pending bookings.') :
-               bookingTab === 'previous' ? (isAr ? 'لا توجد حجوزات سابقة مؤكدة أو مرفوضة.' : 'No previous bookings.') :
-               t('profile_no_bookings')}
+                bookingTab === 'previous' ? (isAr ? 'لا توجد حجوزات سابقة مؤكدة أو مرفوضة.' : 'No previous bookings.') :
+                  t('profile_no_bookings')}
             </p>
           ) : (
             <ul className={styles.list}>
@@ -212,11 +212,11 @@ const Profile = () => {
                 <li key={b.id} className={styles.listItem}>
                   <div className={styles.itemHeader}>
                     <strong>📅 {b.booking_date} {isAr ? 'في تمام' : 'at'} {b.booking_time}</strong>
-                    <span className={styles.badge} style={{ color: getStatusColor(b.status), backgroundColor: getStatusColor(b.status)+'1a', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <span className={styles.badge} style={{ color: getStatusColor(b.status), backgroundColor: getStatusColor(b.status) + '1a', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                       {getStatusIcon(b.status)}
                       {b.status === 'Accepted' ? (isAr ? 'مقبول' : 'Accepted') :
-                       b.status === 'Rejected' ? (isAr ? 'مرفوض' : 'Rejected') :
-                       (isAr ? 'قيد الانتظار' : 'Pending')}
+                        b.status === 'Rejected' ? (isAr ? 'مرفوض' : 'Rejected') :
+                          (isAr ? 'قيد الانتظار' : 'Pending')}
                     </span>
                   </div>
                   <div className={styles.details}>
@@ -237,18 +237,18 @@ const Profile = () => {
             </div>
             {/* Filter pills: All, Active, Past */}
             <div style={{ display: 'flex', gap: '0.35rem', backgroundColor: '#F1F5F9', padding: '0.2rem', borderRadius: '8px' }}>
-              <button 
-                onClick={() => setOrderTab('all')} 
+              <button
+                onClick={() => setOrderTab('all')}
                 style={{ border: 'none', background: orderTab === 'all' ? '#2C2F24' : 'transparent', color: orderTab === 'all' ? 'white' : '#64748B', padding: '0.25rem 0.6rem', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: orderTab === 'all' ? 'bold' : 'normal' }}>
                 {isAr ? 'الكل' : 'All'} ({orders.length})
               </button>
-              <button 
-                onClick={() => setOrderTab('active')} 
+              <button
+                onClick={() => setOrderTab('active')}
                 style={{ border: 'none', background: orderTab === 'active' ? '#2C2F24' : 'transparent', color: orderTab === 'active' ? 'white' : '#64748B', padding: '0.25rem 0.6rem', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: orderTab === 'active' ? 'bold' : 'normal' }}>
                 {isAr ? 'النشطة' : 'Active'} ({activeOrders.length})
               </button>
-              <button 
-                onClick={() => setOrderTab('past')} 
+              <button
+                onClick={() => setOrderTab('past')}
                 style={{ border: 'none', background: orderTab === 'past' ? '#2C2F24' : 'transparent', color: orderTab === 'past' ? 'white' : '#64748B', padding: '0.25rem 0.6rem', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: orderTab === 'past' ? 'bold' : 'normal' }}>
                 {isAr ? 'السابقة' : 'Past'} ({pastOrders.length})
               </button>
@@ -258,8 +258,8 @@ const Profile = () => {
           {displayedOrders.length === 0 ? (
             <p style={{ color: '#888', textAlign: 'center', padding: '2rem 1rem' }}>
               {orderTab === 'active' ? (isAr ? 'لا توجد طلبات نشطة حالياً.' : 'No active orders.') :
-               orderTab === 'past' ? (isAr ? 'لا توجد طلبات سابقة.' : 'No past orders.') :
-               t('profile_no_orders')}
+                orderTab === 'past' ? (isAr ? 'لا توجد طلبات سابقة.' : 'No past orders.') :
+                  t('profile_no_orders')}
             </p>
           ) : (
             <ul className={styles.list}>
@@ -267,13 +267,13 @@ const Profile = () => {
                 <li key={o.id} className={styles.listItem}>
                   <div className={styles.itemHeader}>
                     <strong>🛍️ {isAr ? `طلب #${o.id}` : `Order #${o.id}`}</strong>
-                    <span className={styles.badge} style={{ color: getStatusColor(o.status), backgroundColor: getStatusColor(o.status)+'1a', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <span className={styles.badge} style={{ color: getStatusColor(o.status), backgroundColor: getStatusColor(o.status) + '1a', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                       {getStatusIcon(o.status)}
                       {o.status === 'Accepted' ? (isAr ? 'مقبول' : 'Accepted') :
-                       o.status === 'In Progress' ? (isAr ? 'جاري التحضير' : 'In Progress') :
-                       o.status === 'Delivered' ? (isAr ? 'تم التوصيل' : 'Delivered') :
-                       o.status === 'Rejected' ? (isAr ? 'مرفوض' : 'Rejected') :
-                       (isAr ? 'قيد الانتظار' : 'Pending')}
+                        o.status === 'In Progress' ? (isAr ? 'جاري التحضير' : 'In Progress') :
+                          o.status === 'Delivered' ? (isAr ? 'تم التوصيل' : 'Delivered') :
+                            o.status === 'Rejected' ? (isAr ? 'مرفوض' : 'Rejected') :
+                              (isAr ? 'قيد الانتظار' : 'Pending')}
                     </span>
                   </div>
                   <div className={styles.details} style={{ margin: '0.4rem 0' }}>

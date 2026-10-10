@@ -39,8 +39,8 @@ const OrderOnline = () => {
 
   const handleCheckout = async (e) => {
     e.preventDefault();
-    if(cart.length === 0) return;
-    
+    if (cart.length === 0) return;
+
     setIsProcessing(true);
     setMsg('');
 
@@ -69,7 +69,7 @@ const OrderOnline = () => {
     <div className={`container ${styles.container}`}>
       <h1 style={{ marginBottom: '2rem' }}>{t('order_complete_title')}</h1>
       {msg && <div style={{ padding: '1rem', backgroundColor: '#e8f5e9', color: '#2e7d32', marginBottom: '2rem', borderRadius: '4px' }}>{msg}</div>}
-      
+
       <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 600px' }}>
           <div className="card" style={{ padding: '2rem' }}>
@@ -110,12 +110,12 @@ const OrderOnline = () => {
                     <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 500, marginBottom: '0.25rem', color: '#64748B' }}>
                       {isAr ? 'رقم البطاقة' : 'Card Number'}
                     </label>
-                    <input 
-                      type="text" 
-                      className="form-input" 
-                      placeholder="4532 •••• •••• 8890" 
+                    <input
+                      type="text"
+                      className="form-input"
+                      placeholder="4532 •••• •••• 8890"
                       defaultValue="4532 8901 2345 6789"
-                      required={paymentMethod === 'Card'} 
+                      required={paymentMethod === 'Card'}
                     />
                   </div>
 
@@ -124,25 +124,25 @@ const OrderOnline = () => {
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 500, marginBottom: '0.25rem', color: '#64748B' }}>
                         {isAr ? 'تاريخ الانتهاء' : 'Expiry Date'}
                       </label>
-                      <input 
-                        type="text" 
-                        className="form-input" 
-                        placeholder="MM/YY" 
-                        defaultValue="08/28" 
-                        required={paymentMethod === 'Card'} 
+                      <input
+                        type="text"
+                        className="form-input"
+                        placeholder="MM/YY"
+                        defaultValue="08/28"
+                        required={paymentMethod === 'Card'}
                       />
                     </div>
                     <div style={{ flex: 1 }}>
                       <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 500, marginBottom: '0.25rem', color: '#64748B' }}>
                         CVV
                       </label>
-                      <input 
-                        type="password" 
-                        maxLength="4" 
-                        className="form-input" 
-                        placeholder="•••" 
-                        defaultValue="842" 
-                        required={paymentMethod === 'Card'} 
+                      <input
+                        type="password"
+                        maxLength="4"
+                        className="form-input"
+                        placeholder="•••"
+                        defaultValue="842"
+                        required={paymentMethod === 'Card'}
                       />
                     </div>
                   </div>
@@ -151,7 +151,7 @@ const OrderOnline = () => {
             </form>
           </div>
         </div>
-        
+
         <div style={{ flex: '1 1 350px' }}>
           <div className="card" style={{ padding: '2rem', position: 'sticky', top: '100px' }}>
             <h2 style={{ marginBottom: '1.5rem' }}>{t('order_summary')}</h2>
