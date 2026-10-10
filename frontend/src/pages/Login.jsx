@@ -15,8 +15,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email.trim())) {
+      const msg = isAr ? 'يرجى إدخال بريد إلكتروني صحيح يتضمن النطاق (مثال: name@gmail.com)' : 'Please enter a valid email address (e.g. name@gmail.com)';
+      toast.error(msg);
+      setError(msg);
+      return;
+    }
+
+    if (password.length < 6) {
+      const msg = isAr ? 'كلمة المرور يجب أن لا تقل عن 6 خانات' : 'Password must be at least 6 characters long';
+      toast.error(msg);
+      setError(msg);
+      return;
+    }
+
     try {
-      await login(email, password);
+      await login(email.trim(), password);
       toast.success(isAr ? 'تم تسجيل الدخول بنجاح!' : 'Logged in successfully!');
       navigate('/profile');
     } catch {

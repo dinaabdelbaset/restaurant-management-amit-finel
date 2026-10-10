@@ -13,10 +13,13 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:8',
-            'phone' => 'nullable|string|max:20',
+            'name' => 'required|string|min:2|max:255',
+            'email' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'password' => 'required|string|min:6',
+            'phone' => ['nullable', 'string', 'regex:/^(010|011|012|015)[0-9]{8}$/'],
+        ], [
+            'email.regex' => 'The email format is invalid. Please provide a valid email (e.g. name@example.com).',
+            'phone.regex' => 'The phone number must be a valid 11-digit Egyptian phone number (e.g. 01012345678).'
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -50,8 +53,10 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
+            'email' => ['required', 'string', 'regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/'],
+            'password' => 'required|string|min:6',
+        ], [
+            'email.regex' => 'The email format is invalid. Please provide a valid email (e.g. name@example.com).'
         ]);
 
         $user = User::where('email', $request->email)->first();

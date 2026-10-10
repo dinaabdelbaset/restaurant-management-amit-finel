@@ -44,6 +44,13 @@ const OrderOnline = () => {
     setIsProcessing(true);
     setMsg('');
 
+    const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
+    if (!phoneRegex.test(phone.trim())) {
+      setIsProcessing(false);
+      setMsg(isAr ? 'خطأ: يرجى إدخال رقم هاتف مصري صحيح (11 رقماً يبدأ بـ 010 أو 011 أو 012 أو 015).' : 'Error: Please enter a valid 11-digit Egyptian phone number (e.g. 01012345678).');
+      return;
+    }
+
     // Simulate payment processing delay if Card is selected
     if (paymentMethod === 'Card') {
       await new Promise(resolve => setTimeout(resolve, 2000));

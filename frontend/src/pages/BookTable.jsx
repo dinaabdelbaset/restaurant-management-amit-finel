@@ -23,6 +23,13 @@ const BookTable = () => {
       navigate('/login');
       return;
     }
+
+    const phoneRegex = /^(010|011|012|015)[0-9]{8}$/;
+    if (!phoneRegex.test(phone.trim())) {
+      setMsg(isAr ? 'خطأ: يرجى إدخال رقم هاتف مصري صحيح (11 رقماً يبدأ بـ 010 أو 011 أو 012 أو 015).' : 'Error: Please enter a valid 11-digit Egyptian phone number (starts with 010, 011, 012, or 015).');
+      return;
+    }
+
     try {
       await axios.post('/bookings', { 
         booking_date: date, 
@@ -73,7 +80,7 @@ const BookTable = () => {
                   onChange={e => setTime(e.target.value)} 
                   required
                 >
-                  <option value="">{isAr ? 'اختر التوقيت' : 'Select Time'}</option>
+                  <option value="" disabled hidden>{isAr ? 'اختر التوقيت' : 'Select Time'}</option>
                   <option value="18:30">06:30 PM {isAr ? '(مساءً)' : ''}</option>
                   <option value="19:00">07:00 PM {isAr ? '(مساءً)' : ''}</option>
                   <option value="19:30">07:30 PM {isAr ? '(مساءً)' : ''}</option>
