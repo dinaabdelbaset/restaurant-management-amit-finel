@@ -37,14 +37,14 @@ const Login = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <form onSubmit={handleSubmit} autoComplete="off" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
             <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem', color: '#2C2F24', fontSize: '0.9rem' }}>{t('login_email')}</label>
-            <input type="email" placeholder={t('login_email_placeholder')} style={{ width: '100%', padding: '1rem', borderRadius: '50px', border: '1px solid #eaeaec', outline: 'none' }} value={email} onChange={e => setEmail(e.target.value)} required />
+            <input type="email" placeholder={t('login_email_placeholder')} autoComplete="off" style={{ width: '100%', padding: '1rem', borderRadius: '50px', border: '1px solid #eaeaec', outline: 'none' }} value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
           <div>
             <label style={{ display: 'block', fontWeight: 600, marginBottom: '0.5rem', color: '#2C2F24', fontSize: '0.9rem' }}>{t('login_password')}</label>
-            <input type="password" placeholder={t('login_password_placeholder')} style={{ width: '100%', padding: '1rem', borderRadius: '50px', border: '1px solid #eaeaec', outline: 'none' }} value={password} onChange={e => setPassword(e.target.value)} required />
+            <input type="password" placeholder={t('login_password_placeholder')} autoComplete="new-password" style={{ width: '100%', padding: '1rem', borderRadius: '50px', border: '1px solid #eaeaec', outline: 'none' }} value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
           <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem', padding: '1rem', borderRadius: '50px', fontSize: '1.1rem' }}>{t('login_button')}</button>
         </form>
